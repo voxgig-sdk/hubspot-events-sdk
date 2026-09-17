@@ -1,0 +1,46 @@
+# BasicManageEventDefinitionsPropertyFlow
+
+main: kit: flow: BasicManageEventDefinitionsPropertyFlow:
+{
+  entity: "manage_event_definitions_property",
+  kind: "basic",
+  name: "BasicManageEventDefinitionsPropertyFlow",
+  step: [
+    {
+      input: {
+        ref: "manage_event_definitions_property_ref01"
+      }
+
+      match: {
+        event_definition_id: "event_definition01",
+        event_name: "event_name01"
+      }
+
+      op: "create"
+    }
+
+    {
+      data: {
+        event_definition_id: "event_definition01"
+      }
+
+      input: {
+        ref: "manage_event_definitions_property_ref01",
+        srcdatavar: "manage_event_definitions_property_ref01_data",
+        suffix: "_up0",
+        textfield: "description"
+      }
+
+      op: "update",
+      spec: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-manage_event_definitions_property_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicManageEventDefinitionsPropertyFlow"
+}

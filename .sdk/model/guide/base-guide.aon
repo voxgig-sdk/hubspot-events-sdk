@@ -1,0 +1,71 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 7
+  metrics: count: path: 8
+  metrics: count: method: 12
+
+  entity: basic: {
+    path: "/events/2026-09/event-definitions/{eventName}": {
+      rename: param: "eventName": *"event_name"
+      op: remove: method: *DELETE
+    }
+    path: "/events/2026-09/event-definitions/{eventName}/property/{propertyName}": {
+      rename: param: "eventName": *"event_definition_id"
+      rename: param: "propertyName": *"property_name"
+      op: remove: method: *DELETE
+    }
+    path: "/events/2026-09/send": {
+      op: create: method: *POST
+    }
+  }
+
+  entity: batch: {
+    path: "/events/2026-09/send/batch": {
+      op: create: method: *POST
+    }
+  }
+
+  entity: event_definition: {
+    path: "/events/2026-09/event-definitions": {
+      op: create: method: *POST
+    }
+    path: "/events/2026-09/event-definitions/{eventName}": {
+      rename: param: "eventName": *"id"
+      op: load: method: *GET
+      op: patch: method: *PATCH
+    }
+  }
+
+  entity: events_collection_response_external_unified_event: {
+    path: "/events/event-occurrences/2026-09": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: events_visible_external_event_type_name: {
+    path: "/events/event-occurrences/2026-09/event-types": {
+      op: list: method: *GET
+      op: list: transform: res: *("`body.eventTypes`")|top
+    }
+  }
+
+  entity: manage_event_definitions_collection_response_with_total_external: {
+    path: "/events/2026-09/event-definitions": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: manage_event_definitions_property: {
+    path: "/events/2026-09/event-definitions/{eventName}/property": {
+      rename: param: "eventName": *"event_name"
+      op: create: method: *POST
+    }
+    path: "/events/2026-09/event-definitions/{eventName}/property/{propertyName}": {
+      rename: param: "eventName": *"event_definition_id"
+      rename: param: "propertyName": *"id"
+      op: patch: method: *PATCH
+    }
+  }
+
+}

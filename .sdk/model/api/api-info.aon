@@ -1,0 +1,27 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      description: "HubSpot Events API — merged from the vendor's per-API OpenAPI documents."
+      security: {
+        in: "query"
+        name: "hapikey"
+        prefix: ""
+        scheme: "developer_hapikey"
+        type: "apiKey"
+      }
+      servers: [
+        {
+          url: "https://api.hubapi.com"
+        }
+      ]
+      summary: "HubSpot Events API — merged from the vendor's per-API OpenAPI documents."
+      title: "HubSpot Events API"
+      version: "2026-09"
+      website: "https://hubapi.com"
+    }
+  }
+}
+

@@ -1,0 +1,993 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ManageEventDefinitionsCollectionResponseWithTotalExternal | HubSpot Events API</title><link rel="stylesheet" href="../assets/style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a>
+<header class="site-header"><a class="site-title" href="../index.html">HubSpot Events API<span>SDK documentation</span></a><div class="site-links"><a class="repo-link" href="https://github.com/voxgig-sdk/hubspot-events-sdk">voxgig-sdk/hubspot-events-sdk</a></div></header>
+<div class="site-notice" role="note"></div>
+<div class="shell"><nav class="site-nav" aria-label="Documentation"><div class="search"><label for="search">Search documentation</label><input id="search" type="search" data-base="../" placeholder="Find a guide or reference"><div id="results" aria-live="polite"></div></div><details><summary>Overview</summary><a href="../index.html">HubSpot Events API</a></details>
+<details open><summary>API</summary><a href="../api/index.html">API overview</a>
+<a href="../api/basic.html">Basic</a>
+<a href="../api/batch.html">Batch</a>
+<a href="../api/event_definition.html">EventDefinition</a>
+<a href="../api/events_collection_response_external_unified_event.html">EventsCollectionResponseExternalUnifiedEvent</a>
+<a href="../api/events_visible_external_event_type_name.html">EventsVisibleExternalEventTypeName</a>
+<a aria-current="page" href="../api/manage_event_definitions_collection_response_with_total_external.html">ManageEventDefinitionsCollectionResponseWithTotalExternal</a><div class="nav-sections"><a class="nav-section" href="#get-events2026-09event-definitions">GET /events/2026-09/event-definitions</a></div>
+<a href="../api/manage_event_definitions_property.html">ManageEventDefinitionsProperty</a></details>
+<details><summary>Guides</summary><a href="../guides/authentication.html">Authentication</a>
+<a href="../guides/first-call.html">Make your first API call</a>
+<a href="../guides/errors.html">Handle errors</a>
+<a href="../guides/concepts.html">Entities, SDKs, and tools</a></details>
+<details><summary>SDKs</summary><a href="../sdks/go.html">Golang</a>
+<a href="../sdks/js.html">JavaScript</a>
+<a href="../sdks/lua.html">Lua</a>
+<a href="../sdks/php.html">PHP</a>
+<a href="../sdks/py.html">Python</a>
+<a href="../sdks/ts.html">TypeScript</a></details>
+<details><summary>Tools</summary><a href="../tools/go-cli.html">Go CLI</a>
+<a href="../tools/go-mcp.html">Go MCP server</a></details>
+<details><summary>Features</summary><a href="../features/debug.html">Request/response capture ring buffer for debugging</a>
+<a href="../features/idempotency.html">Idempotency keys for safe retries of mutating operations</a>
+<a href="../features/metrics.html">Statistics capture: per-operation counters and latency</a>
+<a href="../features/paging.html">Pagination signals for list operations</a>
+<a href="../features/ratelimit.html">Client-side rate limiting via a token bucket</a>
+<a href="../features/retry.html">Automatic retry of transient failures with exponential backoff</a>
+<a href="../features/test.html">In-memory mock transport for testing without a live server</a>
+<a href="../features/timeout.html">Per-request timeout with transport abort</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="manageeventdefinitionscollectionresponsewithtotalexternal">ManageEventDefinitionsCollectionResponseWithTotalExternal</h1>
+<h2 id="operations">Operations</h2>
+<p>Every route this entity exposes. Each route links to its own reference on this page.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Route</th>
+<th>SDK operation</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-events2026-09event-definitions"><code>/events/2026-09/event-definitions</code></a></td>
+<td><code>list</code></td>
+<td>successful operation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>archived</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>A boolean indicating whether the event type is archived.</td>
+</tr>
+<tr>
+<td><code>associations</code></td>
+<td><code>array</code></td>
+<td>Yes</td>
+<td>An array of association definitions related to the event type.</td>
+</tr>
+<tr>
+<td><code>comboEventRules</code></td>
+<td><code>object</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>createdAt</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A string representing the date and time when the event type was created, in ISO 8601 format.</td>
+</tr>
+<tr>
+<td><code>createdUserId</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>An integer representing the ID of the user who created the event type.</td>
+</tr>
+<tr>
+<td><code>customMatchingId</code></td>
+<td><code>object</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A string providing a description of the event type.</td>
+</tr>
+<tr>
+<td><code>detailTemplate</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The rendering template for the body of the CRM timeline activity card.</td>
+</tr>
+<tr>
+<td><code>fullyQualifiedName</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>A string representing the fully qualified name of the event type.</td>
+</tr>
+<tr>
+<td><code>headerTemplate</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The rendering template for the header of the CRM timeline activity card.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>A string representing the unique identifier of the event type.</td>
+</tr>
+<tr>
+<td><code>labels</code></td>
+<td><code>object</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>A string representing the name of the event type.</td>
+</tr>
+<tr>
+<td><code>objectTypeId</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>A string representing the object type ID associated with the event type.</td>
+</tr>
+<tr>
+<td><code>primaryObject</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A string representing the primary object associated with the event type.</td>
+</tr>
+<tr>
+<td><code>primaryObjectId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A string representing the ID of the primary object associated with the event type.</td>
+</tr>
+<tr>
+<td><code>properties</code></td>
+<td><code>array</code></td>
+<td>Yes</td>
+<td>An array of property objects associated with the event type.</td>
+</tr>
+<tr>
+<td><code>trackingType</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A string indicating the tracking type of the event.</td>
+</tr>
+<tr>
+<td><code>updatedAt</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A string representing the date and time when the event type was last updated, in ISO 8601 format.</td>
+</tr>
+<tr>
+<td><code>updatedUserId</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>An integer representing the ID of the user who last updated the event type.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="list">list</h2>
+<h3 id="get-events2026-09event-definitions" class="operation" data-method="get"><code>GET</code> /events/2026-09/event-definitions</h3>
+<p>Operation ID: <code>get-/events/2026-09/event-definitions</code>.</p>
+<p>Authentication: oauth2 (<code>oauth2</code>).</p>
+<h4 id="parameters">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>after</code> | <code>query</code> | <code>string</code> | No | A cursor token for pagination. Use the value from the previous response's paging.next.after field to retrieve the next set of results. |
+| <code>includeProperties</code> | <code>query</code> | <code>boolean</code> | No | A boolean indicating whether to include event properties in the response. |
+| <code>limit</code> | <code>query</code> | <code>integer (int32)</code> | No | The maximum number of results to return per page. |
+| <code>searchString</code> | <code>query</code> | <code>string</code> | No | A string to filter event definitions by name or description. |
+| <code>sortOrder</code> | <code>query</code> | <code>string</code> | No | The order in which to sort the results. Accepts values like 'asc' or 'desc'. |</p>
+<h4 id="responses">Responses</h4>
+<h5 id="200-successful-operation" class="status" data-status="2xx">200: successful operation</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>paging</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Represents the pagination information for navigating through a list of results in the API. It provides details on how to access the previous or next set of results.</td>
+</tr>
+<tr>
+<td><code>paging.next</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Specifies the paging information needed to retrieve the next set of results in a paginated API response</td>
+</tr>
+<tr>
+<td><code>paging.next.after</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>A string token used as a cursor to fetch the next page of results. This token is typically returned in the response of a paginated API call.</td>
+</tr>
+<tr>
+<td><code>paging.next.link</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A URL string that points to the next page of results. Clients can use this link to make a request for the subsequent set of data.</td>
+</tr>
+<tr>
+<td><code>paging.prev</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>specifies the paging information needed to retrieve the previous set of results in a paginated API response</td>
+</tr>
+<tr>
+<td><code>paging.prev.before</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>A string token used as a cursor to fetch the previous page of results.</td>
+</tr>
+<tr>
+<td><code>paging.prev.link</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A URL string that provides the link to access the previous page of results.</td>
+</tr>
+<tr>
+<td><code>results</code></td>
+<td><code>array of object</code></td>
+<td>Yes</td>
+<td>An array containing the external behavioral event type definitions returned in the current page.</td>
+</tr>
+<tr>
+<td><code>results[].archived</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>A boolean indicating whether the event type is archived.</td>
+</tr>
+<tr>
+<td><code>results[].associations</code></td>
+<td><code>array of object</code></td>
+<td>Yes</td>
+<td>An array of association definitions related to the event type.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].allowsCustomLabels</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>A boolean indicating if custom labels are allowed for this association.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].cardinality</code></td>
+<td><code>enum: ONE_TO_MANY, ONE_TO_ONE</code></td>
+<td>Yes</td>
+<td>The nature of the association in terms of cardinality, which can be 'ONE_TO_ONE' or 'ONE_TO_MANY'.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].category</code></td>
+<td><code>enum: HUBSPOT_DEFINED, INTEGRATOR_DEFINED, USER_DEFINED, WORK</code></td>
+<td>Yes</td>
+<td>The category of the association, indicating whether it is defined by HubSpot, the user, an integrator, or for work purposes. Valid values include 'HUBSPOT_DEFINED', 'USER_DEFINED', 'INTEGRATOR_DEFINED', and 'WORK'.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].fromObjectType</code></td>
+<td><code>enum: ABANDONED_CART, ACCEPTANCE_TEST, AD, AD_ACCOUNT, AD_CAMPAIGN, AD_GROUP, ...</code></td>
+<td>No</td>
+<td>The type of object from which the association originates. Valid values include various HubSpot object types such as 'CONTACT', 'COMPANY', 'DEAL', etc.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].fromObjectTypeId</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The object type ID from which the association originates.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].hasAllAssociatedObjects</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>A boolean indicating if all associated objects are included in the association.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].hasCascadingDeletes</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>A boolean indicating if cascading deletes are enabled for this association.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].hasUserEnforcedMaxFromObjectIds</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>A boolean indicating if there is a user-enforced maximum on the number of 'from' object IDs.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].hasUserEnforcedMaxToObjectIds</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>A boolean indicating if there is a user-enforced maximum on the number of 'to' object IDs.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].hidden</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>A boolean indicating if the association is hidden.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].hiddenReason</code></td>
+<td><code>enum: DEFAULT, INTERNAL, USER_CONFIGURED</code></td>
+<td>No</td>
+<td>The reason why the association is hidden, if applicable. Valid values include 'DEFAULT', 'INTERNAL', and 'USER_CONFIGURED'.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].id</code></td>
+<td><code>integer (int32)</code></td>
+<td>Yes</td>
+<td>The unique identifier for this association definition.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].inverseAllowsCustomLabels</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>A boolean indicating if custom labels are allowed for the inverse association.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].inverseCardinality</code></td>
+<td><code>enum: ONE_TO_MANY, ONE_TO_ONE</code></td>
+<td>Yes</td>
+<td>The cardinality of the inverse association, which can also be 'ONE_TO_ONE' or 'ONE_TO_MANY'.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].inverseHasAllAssociatedObjects</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>A boolean indicating if all associated objects are included in the inverse association.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].inverseId</code></td>
+<td><code>integer (int32)</code></td>
+<td>Yes</td>
+<td>The unique identifier for the inverse of this association definition.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].inverseLabel</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A human-readable label for the inverse association.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].inverseName</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The name of the inverse association.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].isDefault</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>A boolean indicating if this association is the default association.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].isInversePrimary</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>A boolean indicating if the inverse association is the primary association.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].isPrimary</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>A boolean indicating if this association is the primary association.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].label</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A human-readable label for the association.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].maxFromObjectIds</code></td>
+<td><code>integer (int32)</code></td>
+<td>Yes</td>
+<td>The maximum number of object IDs that can be associated in the 'from' direction.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].maxToObjectIds</code></td>
+<td><code>integer (int32)</code></td>
+<td>Yes</td>
+<td>The maximum number of object IDs that can be associated in the 'to' direction.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The name of the association.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].portalUniqueIdentifier</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>A unique identifier for the association within the portal.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].readOnly</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>A boolean indicating if the association is read-only.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].toObjectType</code></td>
+<td><code>enum: ABANDONED_CART, ACCEPTANCE_TEST, AD, AD_ACCOUNT, AD_CAMPAIGN, AD_GROUP, ...</code></td>
+<td>No</td>
+<td>The type of object to which the association points. Valid values include various HubSpot object types such as 'CONTACT', 'COMPANY', 'DEAL', etc.</td>
+</tr>
+<tr>
+<td><code>results[].associations[].toObjectTypeId</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The object type ID to which the association points.</td>
+</tr>
+<tr>
+<td><code>results[].comboEventRules</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>results[].comboEventRules.composingRules</code></td>
+<td><code>array of object</code></td>
+<td>Yes</td>
+<td>An array of ComboEventRule objects that define the individual rules composing this branch.</td>
+</tr>
+<tr>
+<td><code>results[].comboEventRules.composingRules[].count</code></td>
+<td><code>integer (int32)</code></td>
+<td>Yes</td>
+<td>An integer specifying the number of times the event must occur for the rule to be satisfied.</td>
+</tr>
+<tr>
+<td><code>results[].comboEventRules.composingRules[].eventTypeId</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The unique identifier for the type of event this rule applies to.</td>
+</tr>
+<tr>
+<td><code>results[].comboEventRules.composingRules[].lookbackWindowDays</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>An integer representing the number of days to look back when evaluating the rule.</td>
+</tr>
+<tr>
+<td><code>results[].comboEventRules.composingRules[].propertyFilters</code></td>
+<td><code>array of object</code></td>
+<td>Yes</td>
+<td>An array of property filters that must be satisfied for the rule to apply. Each filter specifies conditions on event properties.</td>
+</tr>
+<tr>
+<td><code>results[].comboEventRules.composingRules[].propertyFilters[].context</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>results[].comboEventRules.composingRules[].propertyFilters[].filterInsightsId</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>An integer representing the ID for insights related to the filter.</td>
+</tr>
+<tr>
+<td><code>results[].comboEventRules.composingRules[].propertyFilters[].filterType</code></td>
+<td><code>enum: PROPERTY</code></td>
+<td>Yes</td>
+<td>A string that specifies the type of filter being applied. The default value is 'PROPERTY'.</td>
+</tr>
+<tr>
+<td><code>results[].comboEventRules.composingRules[].propertyFilters[].frameworkFilterId</code></td>
+<td><code>integer (int64)</code></td>
+<td>No</td>
+<td>An integer that uniquely identifies the framework filter.</td>
+</tr>
+<tr>
+<td><code>results[].comboEventRules.composingRules[].propertyFilters[].operation</code></td>
+<td><code>object or object or object or object or object or object or object or object or object or object or object or object or object or object or object or object or object or object or object or object or object</code></td>
+<td>Yes</td>
+<td>Defines the operation to be performed on the property. It can be one of several types, such as BoolPropertyOperation, NumberPropertyOperation, StringPropertyOperation, etc.</td>
+</tr>
+<tr>
+<td><code>results[].comboEventRules.composingRules[].propertyFilters[].property</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>A string representing the name of the property to which the filter is applied.</td>
+</tr>
+<tr>
+<td><code>results[].comboEventRules.operationType</code></td>
+<td><code>enum: AND, OR</code></td>
+<td>Yes</td>
+<td>The type of logical operation applied to the rule branches and composing rules. Valid values are 'AND' and 'OR'.</td>
+</tr>
+<tr>
+<td><code>results[].comboEventRules.ruleBranches</code></td>
+<td><code>array of object</code></td>
+<td>Yes</td>
+<td>An array of nested ComboEventRuleBranch objects, allowing for hierarchical rule definitions.</td>
+</tr>
+<tr>
+<td><code>results[].createdAt</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>A string representing the date and time when the event type was created, in ISO 8601 format.</td>
+</tr>
+<tr>
+<td><code>results[].createdUserId</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>An integer representing the ID of the user who created the event type.</td>
+</tr>
+<tr>
+<td><code>results[].customMatchingId</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>results[].customMatchingId.primaryObjectRule</code></td>
+<td><code>object</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>results[].customMatchingId.primaryObjectRule.eventPropertyName</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The name of the property on the event that is used for resolution. It is a string.</td>
+</tr>
+<tr>
+<td><code>results[].customMatchingId.primaryObjectRule.targetObjectPropertyName</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The name of the property on the target object that is used for resolution. It is a string.</td>
+</tr>
+<tr>
+<td><code>results[].description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A string providing a description of the event type.</td>
+</tr>
+<tr>
+<td><code>results[].detailTemplate</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The rendering template for the body of the CRM timeline activity card.</td>
+</tr>
+<tr>
+<td><code>results[].fullyQualifiedName</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>A string representing the fully qualified name of the event type.</td>
+</tr>
+<tr>
+<td><code>results[].headerTemplate</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The rendering template for the header of the CRM timeline activity card.</td>
+</tr>
+<tr>
+<td><code>results[].id</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>A string representing the unique identifier of the event type.</td>
+</tr>
+<tr>
+<td><code>results[].labels</code></td>
+<td><code>object</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>results[].labels.plural</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The plural form of the label for the event type. This is a string.</td>
+</tr>
+<tr>
+<td><code>results[].labels.singular</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The singular form of the label for the event type. This is a string and is required.</td>
+</tr>
+<tr>
+<td><code>results[].name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>A string representing the name of the event type.</td>
+</tr>
+<tr>
+<td><code>results[].objectTypeId</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>A string representing the object type ID associated with the event type.</td>
+</tr>
+<tr>
+<td><code>results[].primaryObject</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A string representing the primary object associated with the event type.</td>
+</tr>
+<tr>
+<td><code>results[].primaryObjectId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A string representing the ID of the primary object associated with the event type.</td>
+</tr>
+<tr>
+<td><code>results[].properties</code></td>
+<td><code>array of object</code></td>
+<td>Yes</td>
+<td>An array of property objects associated with the event type.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].archived</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Indicates whether the property is archived.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].archivedAt</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>The date and time when this property was archived, in ISO 8601 format.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].calculated</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Indicates whether the property is calculated.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].calculationFormula</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The formula used to calculate the property's value, if applicable.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].createdAt</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>The date and time when this property was created, in ISO 8601 format.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].createdUserId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The ID of the user who created this property.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].currencyPropertyName</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The name of the currency property associated with this property.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].dataSensitivity</code></td>
+<td><code>enum: highly_sensitive, non_sensitive, sensitive</code></td>
+<td>No</td>
+<td>The sensitivity level of the data, with valid values including 'non_sensitive', 'sensitive', and 'highly_sensitive'.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].dateDisplayHint</code></td>
+<td><code>enum: absolute, absolute_with_relative, time_since, time_until</code></td>
+<td>No</td>
+<td>A hint for displaying date properties, with valid values including 'absolute', 'absolute_with_relative', 'time_since', and 'time_until'.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].description</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>A description of the property.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].displayOrder</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>The order in which this property is displayed relative to other properties.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].externalOptions</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Indicates whether the property options are external.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].fieldType</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The field type of the property.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].formField</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Indicates whether the property is a form field.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].groupName</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The name of the group to which this property belongs.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].hasUniqueValue</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Indicates whether the property has a unique value.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].hidden</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Indicates whether the property is hidden.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].hubspotDefined</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Indicates whether the property is defined by HubSpot.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].label</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The display label for the property.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].modificationMetadata</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>results[].properties[].modificationMetadata.archivable</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>A boolean indicating whether the property can be archived.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].modificationMetadata.readOnlyDefinition</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>A boolean indicating whether the definition of the property is read-only.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].modificationMetadata.readOnlyOptions</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>A boolean indicating whether the options of the property are read-only.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].modificationMetadata.readOnlyValue</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>A boolean indicating whether the value of the property is read-only.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The unique name of the property.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].numberDisplayHint</code></td>
+<td><code>enum: currency, duration, formatted, percentage, probability, unformatted</code></td>
+<td>No</td>
+<td>A hint for displaying number properties, with valid values including 'unformatted', 'formatted', 'currency', 'percentage', 'duration', and 'probability'.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].options</code></td>
+<td><code>array of object</code></td>
+<td>Yes</td>
+<td>An array of options available for this property, applicable if the property supports multiple values.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].options[].description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A detailed description of the option, providing additional context.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].options[].displayOrder</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>An integer that determines the order in which the option appears relative to other options.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].options[].hidden</code></td>
+<td><code>boolean</code></td>
+<td>Yes</td>
+<td>A boolean indicating whether the option is hidden from users.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].options[].label</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The display name of the option, shown to users.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].options[].value</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The internal value associated with the option, used in data processing.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].referencedObjectType</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The type of object that this property references.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].sensitiveDataCategories</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>An array of categories indicating the sensitivity of the data.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].showCurrencySymbol</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Indicates whether a currency symbol is shown for the property.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].textDisplayHint</code></td>
+<td><code>enum: domain_name, email, ip_address, multi_line, phone_number, physical_address, ...</code></td>
+<td>No</td>
+<td>A hint for displaying text properties, with valid values including 'unformatted_single_line', 'multi_line', 'email', 'phone_number', 'domain_name', 'ip_address', 'physical_address', and 'postal_code'.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].type</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The data type of the property.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].updatedAt</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>The date and time when this property was last updated, in ISO 8601 format.</td>
+</tr>
+<tr>
+<td><code>results[].properties[].updatedUserId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The ID of the user who last updated this property.</td>
+</tr>
+<tr>
+<td><code>results[].trackingType</code></td>
+<td><code>enum: APP_EVENT, AUTOCAPTURE_EVENT, CLICKED_ELEMENT, COMBO_EVENT, CUSTOM_SCRIPT, CUSTOM_SIGNAL, ...</code></td>
+<td>No</td>
+<td>A string indicating the tracking type of the event. Valid values include 'VISITED_URL', 'CLICKED_ELEMENT', 'CUSTOM_SCRIPT', 'MANUAL', 'IMPORT', 'PROPERTY_CHANGE', 'COMBO_EVENT'.</td>
+</tr>
+<tr>
+<td><code>results[].updatedAt</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>A string representing the date and time when the event type was last updated, in ISO 8601 format.</td>
+</tr>
+<tr>
+<td><code>results[].updatedUserId</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>An integer representing the ID of the user who last updated the event type.</td>
+</tr>
+<tr>
+<td><code>total</code></td>
+<td><code>integer (int32)</code></td>
+<td>Yes</td>
+<td>The total number of external behavioral event type definitions available.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="default">default</h5>
+<p><code>*/*</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>category</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>The error category.</td>
+</tr>
+<tr>
+<td><code>context</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Context about the error condition, represented as an object with additional properties.</td>
+</tr>
+<tr>
+<td><code>correlationId</code></td>
+<td><code>string (uuid)</code></td>
+<td>Yes</td>
+<td>A unique identifier for the request. Include this value with any error reports or support tickets.</td>
+</tr>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>Further information about the error, represented as an array of ErrorDetail objects.</td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The status code associated with the error detail. This is a string property.</td>
+</tr>
+<tr>
+<td><code>errors[].context</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Context about the error condition, represented as an object where each key is a context name and each value is an array of strings providing additional details.</td>
+</tr>
+<tr>
+<td><code>errors[].in</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The name of the field or parameter in which the error was found. This is a string property.</td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>A human readable message describing the error along with remediation steps where appropriate. This is a required string property.</td>
+</tr>
+<tr>
+<td><code>errors[].subCategory</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A specific category that contains more specific detail about the error. This is a string property.</td>
+</tr>
+<tr>
+<td><code>links</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>A map of link names to associated URIs containing documentation about the error or recommended remediation steps.</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>A human readable message describing the error along with remediation steps where appropriate.</td>
+</tr>
+<tr>
+<td><code>subCategory</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A specific category that contains more specific detail about the error.</td>
+</tr>
+</tbody>
+</table>
+</main></div>
+<script src="../assets/search.js" defer></script></body></html>
