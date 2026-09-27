@@ -1,0 +1,218 @@
+# Entity: events_collection_response_external_unified_event
+
+main: kit: entity: events_collection_response_external_unified_event: {
+
+  alias: field: {}
+
+  fields: {
+    eventType: {
+      h: "Event Type"
+      n: "eventType"
+      r: true
+      sh: "The format of the `eventType` string is `ae{appId}_{eventTypeLabel}`, `pe{portalId}_{eventTypeLabel}`, or just `e_{eventTypeLabel}` for HubSpot events."
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "A unique identifier for the event."
+      t: "`$STRING`"
+    }
+    objectId: {
+      h: "Object Id"
+      n: "objectId"
+      r: true
+      sh: "The objectId of the object which did the event."
+      t: "`$STRING`"
+    }
+    objectType: {
+      h: "Object Type"
+      n: "objectType"
+      r: true
+      sh: "The objectType for the object which did the event."
+      t: "`$STRING`"
+    }
+    occurredAt: {
+      fo: "date-time"
+      h: "Occurred At"
+      n: "occurredAt"
+      r: true
+      sh: "An ISO 8601 timestamp when the event occurred."
+      t: "`$STRING`"
+    }
+    properties: {
+      h: "Properties"
+      n: "properties"
+      r: true
+      sh: "A key-value map of event-specific properties."
+      t: "`$OBJECT`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "events_collection_response_external_unified_event"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /events/event-occurrences/2026-09"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: null
+                k: "query"
+                n: "after"
+                or: "after"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: null
+                k: "query"
+                n: "before"
+                or: "before"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: null
+                k: "query"
+                n: "event_type"
+                or: "event_type"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: null
+                k: "query"
+                n: "id"
+                or: "id"
+                r: false
+                t: "`$ARRAY`"
+              }
+              {
+                ex: null
+                k: "query"
+                n: "limit"
+                or: "limit"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: null
+                k: "query"
+                n: "object_id"
+                or: "object_id"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: null
+                k: "query"
+                n: "object_property_{propname}"
+                or: "object_property_{propname}"
+                r: false
+                t: "`$OBJECT`"
+              }
+              {
+                ex: null
+                k: "query"
+                n: "object_type"
+                or: "object_type"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: null
+                k: "query"
+                n: "occurred_after"
+                or: "occurred_after"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: null
+                k: "query"
+                n: "occurred_before"
+                or: "occurred_before"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: null
+                k: "query"
+                n: "property"
+                or: "property"
+                r: false
+                t: "`$ARRAY`"
+              }
+              {
+                ex: null
+                k: "query"
+                n: "property_{propname}"
+                or: "property_{propname}"
+                r: false
+                t: "`$OBJECT`"
+              }
+              {
+                ex: null
+                k: "query"
+                n: "sort"
+                or: "sort"
+                r: false
+                t: "`$ARRAY`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/events/event-occurrences/2026-09"
+          q: {
+            exist: [
+              "after"
+              "before"
+              "event_type"
+              "id"
+              "limit"
+              "object_id"
+              "object_property_{propname}"
+              "object_type"
+              "occurred_after"
+              "occurred_before"
+              "property"
+              "property_{propname}"
+              "sort"
+            ]
+          }
+          s: [
+            {
+              lit: "events"
+            }
+            {
+              lit: "event-occurrences"
+            }
+            {
+              lit: "2026-09"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

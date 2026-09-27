@@ -19,7 +19,6 @@ import type {
   ManageEventDefinitionsCollectionResponseWithTotalExternalListMatch,
 } from '../HubspotEventsTypes'
 
-// TODO: needs Entity superclass
 class ManageEventDefinitionsCollectionResponseWithTotalExternalEntity extends HubspotEventsEntityBase<ManageEventDefinitionsCollectionResponseWithTotalExternal> {
 
   constructor(client: HubspotEventsSDK, entopts: any) {

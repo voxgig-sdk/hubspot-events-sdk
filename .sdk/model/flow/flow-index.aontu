@@ -1,0 +1,9 @@
+# Flows
+
+@"./BasicBasicFlow.aontu"
+@"./BasicBatchFlow.aontu"
+@"./BasicEventDefinitionFlow.aontu"
+@"./BasicEventsCollectionResponseExternalUnifiedEventFlow.aontu"
+@"./BasicEventsVisibleExternalEventTypeNameFlow.aontu"
+@"./BasicManageEventDefinitionsCollectionResponseWithTotalExternalFlow.aontu"
+@"./BasicPropertyFlow.aontu"

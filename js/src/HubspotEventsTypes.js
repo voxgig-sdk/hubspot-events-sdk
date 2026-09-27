@@ -1,7 +1,7 @@
 // Typed models for the HubspotEvents SDK (JSDoc typedefs).
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Annotations only — no runtime effect. Do not
 // edit by hand.
@@ -203,7 +203,7 @@
  */
 
 /**
- * @typedef {Object} ManageEventDefinitionsProperty
+ * @typedef {Object} Property
  * @property {string} [description]
  * @property {number} [displayOrder]
  * @property {boolean} [hidden]
@@ -215,7 +215,7 @@
  */
 
 /**
- * @typedef {Object} ManageEventDefinitionsPropertyCreateData
+ * @typedef {Object} PropertyCreateData
  * @property {string} event_name
  * @property {string} [description]
  * @property {number} [displayOrder]
@@ -228,7 +228,7 @@
  */
 
 /**
- * @typedef {Object} ManageEventDefinitionsPropertyUpdateData
+ * @typedef {Object} PropertyUpdateData
  * @property {string} event_definition_id
  * @property {string} id
  * @property {string} [description]

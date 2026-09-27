@@ -160,7 +160,7 @@ local function make_config()
         ["events_collection_response_external_unified_event"] = {},
         ["events_visible_external_event_type_name"] = {},
         ["manage_event_definitions_collection_response_with_total_external"] = {},
-        ["manage_event_definitions_property"] = {},
+        ["property"] = {},
       },
     },
     entity = {
@@ -168,41 +168,48 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "email",
-            ["short"] = "The visitor's email address.",
+            ["title"] = "Email",
             ["type"] = "`$STRING`",
+            ["short"] = "The visitor's email address.",
           },
           {
             ["name"] = "eventName",
+            ["title"] = "Event Name",
+            ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "The event's fully qualified name.",
-            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "objectId",
-            ["short"] = "The ID of the record for which the event occurred (e.g., contact ID or visitor ID).",
+            ["title"] = "Object Id",
             ["type"] = "`$STRING`",
+            ["short"] = "The ID of the record for which the event occurred (e.g., contact ID or visitor ID).",
           },
           {
-            ["format"] = "date-time",
             ["name"] = "occurredAt",
-            ["short"] = "The time when this event occurred.",
+            ["title"] = "Occurred At",
             ["type"] = "`$STRING`",
+            ["short"] = "The time when this event occurred.",
+            ["format"] = "date-time",
           },
           {
             ["name"] = "properties",
+            ["title"] = "Properties",
+            ["type"] = "`$OBJECT`",
             ["req"] = true,
             ["short"] = "The event properties to update.",
-            ["type"] = "`$OBJECT`",
           },
           {
             ["name"] = "utk",
-            ["short"] = "The visitor's usertoken.",
+            ["title"] = "Utk",
             ["type"] = "`$STRING`",
+            ["short"] = "The visitor's usertoken.",
           },
           {
             ["name"] = "uuid",
-            ["short"] = "A unique identifier for the event occurrence.",
+            ["title"] = "Uuid",
             ["type"] = "`$STRING`",
+            ["short"] = "A unique identifier for the event occurrence.",
           },
         },
         ["name"] = "basic",
@@ -212,7 +219,6 @@ local function make_config()
             ["name"] = "create",
             ["points"] = {
               {
-                ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/events/2026-09/send",
@@ -227,16 +233,18 @@ local function make_config()
                     ["lit"] = "send",
                   },
                 },
-                ["select"] = {},
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
-                },
                 ["parts"] = {
                   "events",
                   "2026-09",
                   "send",
                 },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {},
+                ["select"] = {},
               },
             },
           },
@@ -245,35 +253,9 @@ local function make_config()
             ["name"] = "remove",
             ["points"] = {
               {
-                ["args"] = {
-                  ["params"] = {
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "param",
-                      ["name"] = "event_definition_id",
-                      ["orig"] = "event_name",
-                      ["reqd"] = true,
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "param",
-                      ["name"] = "property_name",
-                      ["orig"] = "property_name",
-                      ["reqd"] = true,
-                      ["type"] = "`$STRING`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "DELETE",
                 ["orig"] = "/events/2026-09/event-definitions/{eventName}/property/{propertyName}",
-                ["rename"] = {
-                  ["param"] = {
-                    ["eventName"] = "event_definition_id",
-                    ["propertyName"] = "property_name",
-                  },
-                },
                 ["segments"] = {
                   {
                     ["lit"] = "events",
@@ -294,16 +276,6 @@ local function make_config()
                     ["var"] = "property_name",
                   },
                 },
-                ["select"] = {
-                  ["exist"] = {
-                    "event_definition_id",
-                    "property_name",
-                  },
-                },
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
-                },
                 ["parts"] = {
                   "events",
                   "2026-09",
@@ -312,28 +284,47 @@ local function make_config()
                   "property",
                   "{property_name}",
                 },
-              },
-              {
+                ["rename"] = {
+                  ["param"] = {
+                    ["eventName"] = "event_definition_id",
+                    ["propertyName"] = "property_name",
+                  },
+                },
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
                 ["args"] = {
                   ["params"] = {
                     {
-                      ["example"] = nil,
-                      ["kind"] = "param",
-                      ["name"] = "event_name",
+                      ["name"] = "event_definition_id",
                       ["orig"] = "event_name",
-                      ["reqd"] = true,
                       ["type"] = "`$STRING`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = nil,
+                    },
+                    {
+                      ["name"] = "property_name",
+                      ["orig"] = "property_name",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = nil,
                     },
                   },
                 },
+                ["select"] = {
+                  ["exist"] = {
+                    "event_definition_id",
+                    "property_name",
+                  },
+                },
+              },
+              {
                 ["kind"] = "http",
                 ["method"] = "DELETE",
                 ["orig"] = "/events/2026-09/event-definitions/{eventName}",
-                ["rename"] = {
-                  ["param"] = {
-                    ["eventName"] = "event_name",
-                  },
-                },
                 ["segments"] = {
                   {
                     ["lit"] = "events",
@@ -348,20 +339,37 @@ local function make_config()
                     ["var"] = "event_name",
                   },
                 },
-                ["select"] = {
-                  ["exist"] = {
-                    "event_name",
+                ["parts"] = {
+                  "events",
+                  "2026-09",
+                  "event-definitions",
+                  "{event_name}",
+                },
+                ["rename"] = {
+                  ["param"] = {
+                    ["eventName"] = "event_name",
                   },
                 },
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-                ["parts"] = {
-                  "events",
-                  "2026-09",
-                  "event-definitions",
-                  "{event_name}",
+                ["args"] = {
+                  ["params"] = {
+                    {
+                      ["name"] = "event_name",
+                      ["orig"] = "event_name",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = nil,
+                    },
+                  },
+                },
+                ["select"] = {
+                  ["exist"] = {
+                    "event_name",
+                  },
                 },
               },
             },
@@ -370,11 +378,11 @@ local function make_config()
         ["relations"] = {
           ["ancestors"] = {
             {
-              "event_definition",
+              "$.main.kit.entity.event_definition",
             },
             {
-              "event_definition",
-              "property",
+              "$.main.kit.entity.event_definition",
+              "$.main.kit.entity.property",
             },
           },
         },
@@ -383,9 +391,10 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "inputs",
+            ["title"] = "Inputs",
+            ["type"] = "`$ARRAY`",
             ["req"] = true,
             ["short"] = "An array of BehavioralEventHttpCompletionRequest objects, each representing a single behavioral event to be completed.",
-            ["type"] = "`$ARRAY`",
           },
         },
         ["name"] = "batch",
@@ -395,7 +404,6 @@ local function make_config()
             ["name"] = "create",
             ["points"] = {
               {
-                ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/events/2026-09/send/batch",
@@ -413,17 +421,19 @@ local function make_config()
                     ["lit"] = "batch",
                   },
                 },
-                ["select"] = {},
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
-                },
                 ["parts"] = {
                   "events",
                   "2026-09",
                   "send",
                   "batch",
                 },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {},
+                ["select"] = {},
               },
             },
           },
@@ -436,153 +446,172 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "archived",
+            ["title"] = "Archived",
+            ["type"] = "`$BOOLEAN`",
             ["req"] = true,
             ["short"] = "A boolean indicating whether the event type is archived.",
-            ["type"] = "`$BOOLEAN`",
           },
           {
             ["name"] = "associations",
+            ["title"] = "Associations",
+            ["type"] = "`$ARRAY`",
             ["req"] = true,
             ["short"] = "An array of association definitions related to the event type.",
-            ["type"] = "`$ARRAY`",
           },
           {
             ["name"] = "comboEventRules",
-            ["req"] = true,
+            ["title"] = "Combo Event Rules",
             ["type"] = "`$OBJECT`",
-            ["union"] = {
-              ["branches"] = 21,
-              ["count"] = 17,
-              ["depth"] = 20,
-            },
+            ["req"] = true,
           },
           {
-            ["format"] = "date-time",
             ["name"] = "createdAt",
-            ["short"] = "A string representing the date and time when the event type was created, in ISO 8601 format.",
+            ["title"] = "Created At",
             ["type"] = "`$STRING`",
+            ["short"] = "A string representing the date and time when the event type was created, in ISO 8601 format.",
+            ["format"] = "date-time",
           },
           {
-            ["format"] = "int32",
             ["name"] = "createdUserId",
-            ["short"] = "An integer representing the ID of the user who created the event type.",
+            ["title"] = "Created User Id",
             ["type"] = "`$INTEGER`",
+            ["short"] = "An integer representing the ID of the user who created the event type.",
+            ["format"] = "int32",
           },
           {
             ["name"] = "customMatchingId",
-            ["req"] = true,
+            ["title"] = "Custom Matching Id",
             ["type"] = "`$OBJECT`",
+            ["req"] = true,
           },
           {
             ["name"] = "description",
-            ["short"] = "A string providing a description of the event type.",
+            ["title"] = "Description",
             ["type"] = "`$STRING`",
+            ["short"] = "A string providing a description of the event type.",
           },
           {
             ["name"] = "detailTemplate",
-            ["short"] = "The rendering template for the body of the CRM timeline activity card.",
+            ["title"] = "Detail Template",
             ["type"] = "`$STRING`",
+            ["short"] = "The rendering template for the body of the CRM timeline activity card.",
           },
           {
             ["name"] = "fullyQualifiedName",
+            ["title"] = "Fully Qualified Name",
+            ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "A string representing the fully qualified name of the event type.",
-            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "headerTemplate",
-            ["short"] = "The rendering template for the header of the CRM timeline activity card.",
+            ["title"] = "Header Template",
             ["type"] = "`$STRING`",
+            ["short"] = "The rendering template for the header of the CRM timeline activity card.",
           },
           {
             ["name"] = "id",
+            ["title"] = "Id",
+            ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "A string representing the unique identifier of the event type.",
-            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "includeDefaultProperties",
+            ["title"] = "Include Default Properties",
+            ["type"] = "`$BOOLEAN`",
             ["req"] = true,
             ["short"] = "A boolean indicating whether default properties should be included.",
-            ["type"] = "`$BOOLEAN`",
           },
           {
             ["name"] = "label",
+            ["title"] = "Label",
+            ["type"] = "`$STRING`",
+            ["req"] = true,
             ["op"] = {
               ["update"] = {
                 ["type"] = "`$STRING`",
               },
             },
-            ["req"] = true,
             ["short"] = "A string representing the label of the event type.",
-            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "labels",
-            ["req"] = true,
+            ["title"] = "Labels",
             ["type"] = "`$OBJECT`",
+            ["req"] = true,
           },
           {
             ["name"] = "name",
+            ["title"] = "Name",
+            ["type"] = "`$STRING`",
+            ["req"] = true,
             ["op"] = {
               ["create"] = {
                 ["type"] = "`$STRING`",
               },
             },
-            ["req"] = true,
             ["short"] = "A string representing the name of the event type.",
-            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "objectTypeId",
+            ["title"] = "Object Type Id",
+            ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "A string representing the object type ID associated with the event type.",
-            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "primaryObject",
-            ["short"] = "A string representing the primary object associated with the event type.",
+            ["title"] = "Primary Object",
             ["type"] = "`$STRING`",
+            ["short"] = "A string representing the primary object associated with the event type.",
           },
           {
             ["name"] = "primaryObjectId",
-            ["short"] = "A string representing the ID of the primary object associated with the event type.",
+            ["title"] = "Primary Object Id",
             ["type"] = "`$STRING`",
+            ["short"] = "A string representing the ID of the primary object associated with the event type.",
           },
           {
             ["name"] = "properties",
+            ["title"] = "Properties",
+            ["type"] = "`$ARRAY`",
             ["req"] = true,
             ["short"] = "An array of property objects associated with the event type.",
-            ["type"] = "`$ARRAY`",
           },
           {
             ["name"] = "propertyDefinitions",
+            ["title"] = "Property Definitions",
+            ["type"] = "`$ARRAY`",
             ["req"] = true,
             ["short"] = "An array of property definitions, each represented by an ExternalBehavioralEventPropertyCreate object.",
-            ["type"] = "`$ARRAY`",
           },
           {
             ["name"] = "propertyOrder",
+            ["title"] = "Property Order",
+            ["type"] = "`$ARRAY`",
             ["req"] = true,
             ["short"] = "Specifies the ordering and visibility of event properties when rendered on the CRM timeline activity card.",
-            ["type"] = "`$ARRAY`",
           },
           {
             ["name"] = "trackingType",
+            ["title"] = "Tracking Type",
+            ["type"] = "`$STRING`",
             ["short"] = "A string indicating the tracking type of the event.",
-            ["type"] = "`$STRING`",
           },
           {
-            ["format"] = "date-time",
             ["name"] = "updatedAt",
-            ["short"] = "A string representing the date and time when the event type was last updated, in ISO 8601 format.",
+            ["title"] = "Updated At",
             ["type"] = "`$STRING`",
+            ["short"] = "A string representing the date and time when the event type was last updated, in ISO 8601 format.",
+            ["format"] = "date-time",
           },
           {
-            ["format"] = "int32",
             ["name"] = "updatedUserId",
-            ["short"] = "An integer representing the ID of the user who last updated the event type.",
+            ["title"] = "Updated User Id",
             ["type"] = "`$INTEGER`",
+            ["short"] = "An integer representing the ID of the user who last updated the event type.",
+            ["format"] = "int32",
           },
         },
         ["id"] = {
@@ -596,7 +625,6 @@ local function make_config()
             ["name"] = "create",
             ["points"] = {
               {
-                ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/events/2026-09/event-definitions",
@@ -611,16 +639,18 @@ local function make_config()
                     ["lit"] = "event-definitions",
                   },
                 },
-                ["select"] = {},
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
-                },
                 ["parts"] = {
                   "events",
                   "2026-09",
                   "event-definitions",
                 },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {},
+                ["select"] = {},
               },
             },
           },
@@ -629,26 +659,9 @@ local function make_config()
             ["name"] = "load",
             ["points"] = {
               {
-                ["args"] = {
-                  ["params"] = {
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "param",
-                      ["name"] = "id",
-                      ["orig"] = "event_name",
-                      ["reqd"] = true,
-                      ["type"] = "`$STRING`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/events/2026-09/event-definitions/{eventName}",
-                ["rename"] = {
-                  ["param"] = {
-                    ["eventName"] = "id",
-                  },
-                },
                 ["segments"] = {
                   {
                     ["lit"] = "events",
@@ -663,20 +676,37 @@ local function make_config()
                     ["var"] = "id",
                   },
                 },
-                ["select"] = {
-                  ["exist"] = {
-                    "id",
+                ["parts"] = {
+                  "events",
+                  "2026-09",
+                  "event-definitions",
+                  "{id}",
+                },
+                ["rename"] = {
+                  ["param"] = {
+                    ["eventName"] = "id",
                   },
                 },
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-                ["parts"] = {
-                  "events",
-                  "2026-09",
-                  "event-definitions",
-                  "{id}",
+                ["args"] = {
+                  ["params"] = {
+                    {
+                      ["name"] = "id",
+                      ["orig"] = "event_name",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = nil,
+                    },
+                  },
+                },
+                ["select"] = {
+                  ["exist"] = {
+                    "id",
+                  },
                 },
               },
             },
@@ -686,26 +716,9 @@ local function make_config()
             ["name"] = "update",
             ["points"] = {
               {
-                ["args"] = {
-                  ["params"] = {
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "param",
-                      ["name"] = "id",
-                      ["orig"] = "event_name",
-                      ["reqd"] = true,
-                      ["type"] = "`$STRING`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "PATCH",
                 ["orig"] = "/events/2026-09/event-definitions/{eventName}",
-                ["rename"] = {
-                  ["param"] = {
-                    ["eventName"] = "id",
-                  },
-                },
                 ["segments"] = {
                   {
                     ["lit"] = "events",
@@ -720,20 +733,37 @@ local function make_config()
                     ["var"] = "id",
                   },
                 },
-                ["select"] = {
-                  ["exist"] = {
-                    "id",
+                ["parts"] = {
+                  "events",
+                  "2026-09",
+                  "event-definitions",
+                  "{id}",
+                },
+                ["rename"] = {
+                  ["param"] = {
+                    ["eventName"] = "id",
                   },
                 },
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-                ["parts"] = {
-                  "events",
-                  "2026-09",
-                  "event-definitions",
-                  "{id}",
+                ["args"] = {
+                  ["params"] = {
+                    {
+                      ["name"] = "id",
+                      ["orig"] = "event_name",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = nil,
+                    },
+                  },
+                },
+                ["select"] = {
+                  ["exist"] = {
+                    "id",
+                  },
                 },
               },
             },
@@ -747,40 +777,46 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "eventType",
+            ["title"] = "Event Type",
+            ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "The format of the `eventType` string is `ae{appId}_{eventTypeLabel}`, `pe{portalId}_{eventTypeLabel}`, or just `e_{eventTypeLabel}` for HubSpot events.",
-            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "id",
+            ["title"] = "Id",
+            ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "A unique identifier for the event.",
-            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "objectId",
+            ["title"] = "Object Id",
+            ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "The objectId of the object which did the event.",
-            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "objectType",
+            ["title"] = "Object Type",
+            ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "The objectType for the object which did the event.",
-            ["type"] = "`$STRING`",
           },
           {
-            ["format"] = "date-time",
             ["name"] = "occurredAt",
+            ["title"] = "Occurred At",
+            ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "An ISO 8601 timestamp when the event occurred.",
-            ["type"] = "`$STRING`",
+            ["format"] = "date-time",
           },
           {
             ["name"] = "properties",
+            ["title"] = "Properties",
+            ["type"] = "`$OBJECT`",
             ["req"] = true,
             ["short"] = "A key-value map of event-specific properties.",
-            ["type"] = "`$OBJECT`",
           },
         },
         ["id"] = {
@@ -794,101 +830,6 @@ local function make_config()
             ["name"] = "list",
             ["points"] = {
               {
-                ["args"] = {
-                  ["query"] = {
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "query",
-                      ["name"] = "after",
-                      ["orig"] = "after",
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "query",
-                      ["name"] = "before",
-                      ["orig"] = "before",
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "query",
-                      ["name"] = "event_type",
-                      ["orig"] = "event_type",
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "query",
-                      ["name"] = "id",
-                      ["orig"] = "id",
-                      ["type"] = "`$ARRAY`",
-                    },
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "query",
-                      ["name"] = "limit",
-                      ["orig"] = "limit",
-                      ["type"] = "`$INTEGER`",
-                    },
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "query",
-                      ["name"] = "object_id",
-                      ["orig"] = "object_id",
-                      ["type"] = "`$INTEGER`",
-                    },
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "query",
-                      ["name"] = "object_property_{propname}",
-                      ["orig"] = "object_property_{propname}",
-                      ["type"] = "`$OBJECT`",
-                    },
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "query",
-                      ["name"] = "object_type",
-                      ["orig"] = "object_type",
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "query",
-                      ["name"] = "occurred_after",
-                      ["orig"] = "occurred_after",
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "query",
-                      ["name"] = "occurred_before",
-                      ["orig"] = "occurred_before",
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "query",
-                      ["name"] = "property",
-                      ["orig"] = "property",
-                      ["type"] = "`$ARRAY`",
-                    },
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "query",
-                      ["name"] = "property_{propname}",
-                      ["orig"] = "property_{propname}",
-                      ["type"] = "`$OBJECT`",
-                    },
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "query",
-                      ["name"] = "sort",
-                      ["orig"] = "sort",
-                      ["type"] = "`$ARRAY`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/events/event-occurrences/2026-09",
@@ -901,6 +842,111 @@ local function make_config()
                   },
                   {
                     ["lit"] = "2026-09",
+                  },
+                },
+                ["parts"] = {
+                  "events",
+                  "event-occurrences",
+                  "2026-09",
+                },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {
+                  ["query"] = {
+                    {
+                      ["name"] = "after",
+                      ["orig"] = "after",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                      ["example"] = nil,
+                    },
+                    {
+                      ["name"] = "before",
+                      ["orig"] = "before",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                      ["example"] = nil,
+                    },
+                    {
+                      ["name"] = "event_type",
+                      ["orig"] = "event_type",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                      ["example"] = nil,
+                    },
+                    {
+                      ["name"] = "id",
+                      ["orig"] = "id",
+                      ["type"] = "`$ARRAY`",
+                      ["kind"] = "query",
+                      ["example"] = nil,
+                    },
+                    {
+                      ["name"] = "limit",
+                      ["orig"] = "limit",
+                      ["type"] = "`$INTEGER`",
+                      ["kind"] = "query",
+                      ["example"] = nil,
+                    },
+                    {
+                      ["name"] = "object_id",
+                      ["orig"] = "object_id",
+                      ["type"] = "`$INTEGER`",
+                      ["kind"] = "query",
+                      ["example"] = nil,
+                    },
+                    {
+                      ["name"] = "object_property_{propname}",
+                      ["orig"] = "object_property_{propname}",
+                      ["type"] = "`$OBJECT`",
+                      ["kind"] = "query",
+                      ["example"] = nil,
+                    },
+                    {
+                      ["name"] = "object_type",
+                      ["orig"] = "object_type",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                      ["example"] = nil,
+                    },
+                    {
+                      ["name"] = "occurred_after",
+                      ["orig"] = "occurred_after",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                      ["example"] = nil,
+                    },
+                    {
+                      ["name"] = "occurred_before",
+                      ["orig"] = "occurred_before",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                      ["example"] = nil,
+                    },
+                    {
+                      ["name"] = "property",
+                      ["orig"] = "property",
+                      ["type"] = "`$ARRAY`",
+                      ["kind"] = "query",
+                      ["example"] = nil,
+                    },
+                    {
+                      ["name"] = "property_{propname}",
+                      ["orig"] = "property_{propname}",
+                      ["type"] = "`$OBJECT`",
+                      ["kind"] = "query",
+                      ["example"] = nil,
+                    },
+                    {
+                      ["name"] = "sort",
+                      ["orig"] = "sort",
+                      ["type"] = "`$ARRAY`",
+                      ["kind"] = "query",
+                      ["example"] = nil,
+                    },
                   },
                 },
                 ["select"] = {
@@ -920,15 +966,6 @@ local function make_config()
                     "sort",
                   },
                 },
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
-                },
-                ["parts"] = {
-                  "events",
-                  "event-occurrences",
-                  "2026-09",
-                },
               },
             },
           },
@@ -941,9 +978,10 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "eventTypes",
+            ["title"] = "Event Types",
+            ["type"] = "`$ARRAY`",
             ["req"] = true,
             ["short"] = "List of event type names.",
-            ["type"] = "`$ARRAY`",
           },
         },
         ["name"] = "events_visible_external_event_type_name",
@@ -953,7 +991,6 @@ local function make_config()
             ["name"] = "list",
             ["points"] = {
               {
-                ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/events/event-occurrences/2026-09/event-types",
@@ -971,17 +1008,19 @@ local function make_config()
                     ["lit"] = "event-types",
                   },
                 },
-                ["select"] = {},
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body.eventTypes`",
-                },
                 ["parts"] = {
                   "events",
                   "event-occurrences",
                   "2026-09",
                   "event-types",
                 },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body.eventTypes`",
+                },
+                ["args"] = {},
+                ["select"] = {},
               },
             },
           },
@@ -994,119 +1033,134 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "archived",
+            ["title"] = "Archived",
+            ["type"] = "`$BOOLEAN`",
             ["req"] = true,
             ["short"] = "A boolean indicating whether the event type is archived.",
-            ["type"] = "`$BOOLEAN`",
           },
           {
             ["name"] = "associations",
+            ["title"] = "Associations",
+            ["type"] = "`$ARRAY`",
             ["req"] = true,
             ["short"] = "An array of association definitions related to the event type.",
-            ["type"] = "`$ARRAY`",
           },
           {
             ["name"] = "comboEventRules",
-            ["req"] = true,
+            ["title"] = "Combo Event Rules",
             ["type"] = "`$OBJECT`",
-            ["union"] = {
-              ["branches"] = 21,
-              ["count"] = 17,
-              ["depth"] = 20,
-            },
+            ["req"] = true,
           },
           {
-            ["format"] = "date-time",
             ["name"] = "createdAt",
-            ["short"] = "A string representing the date and time when the event type was created, in ISO 8601 format.",
+            ["title"] = "Created At",
             ["type"] = "`$STRING`",
+            ["short"] = "A string representing the date and time when the event type was created, in ISO 8601 format.",
+            ["format"] = "date-time",
           },
           {
-            ["format"] = "int32",
             ["name"] = "createdUserId",
-            ["short"] = "An integer representing the ID of the user who created the event type.",
+            ["title"] = "Created User Id",
             ["type"] = "`$INTEGER`",
+            ["short"] = "An integer representing the ID of the user who created the event type.",
+            ["format"] = "int32",
           },
           {
             ["name"] = "customMatchingId",
-            ["req"] = true,
+            ["title"] = "Custom Matching Id",
             ["type"] = "`$OBJECT`",
+            ["req"] = true,
           },
           {
             ["name"] = "description",
-            ["short"] = "A string providing a description of the event type.",
+            ["title"] = "Description",
             ["type"] = "`$STRING`",
+            ["short"] = "A string providing a description of the event type.",
           },
           {
             ["name"] = "detailTemplate",
-            ["short"] = "The rendering template for the body of the CRM timeline activity card.",
+            ["title"] = "Detail Template",
             ["type"] = "`$STRING`",
+            ["short"] = "The rendering template for the body of the CRM timeline activity card.",
           },
           {
             ["name"] = "fullyQualifiedName",
+            ["title"] = "Fully Qualified Name",
+            ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "A string representing the fully qualified name of the event type.",
-            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "headerTemplate",
-            ["short"] = "The rendering template for the header of the CRM timeline activity card.",
+            ["title"] = "Header Template",
             ["type"] = "`$STRING`",
+            ["short"] = "The rendering template for the header of the CRM timeline activity card.",
           },
           {
             ["name"] = "id",
+            ["title"] = "Id",
+            ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "A string representing the unique identifier of the event type.",
-            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "labels",
-            ["req"] = true,
+            ["title"] = "Labels",
             ["type"] = "`$OBJECT`",
+            ["req"] = true,
           },
           {
             ["name"] = "name",
+            ["title"] = "Name",
+            ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "A string representing the name of the event type.",
-            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "objectTypeId",
+            ["title"] = "Object Type Id",
+            ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "A string representing the object type ID associated with the event type.",
-            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "primaryObject",
-            ["short"] = "A string representing the primary object associated with the event type.",
+            ["title"] = "Primary Object",
             ["type"] = "`$STRING`",
+            ["short"] = "A string representing the primary object associated with the event type.",
           },
           {
             ["name"] = "primaryObjectId",
-            ["short"] = "A string representing the ID of the primary object associated with the event type.",
+            ["title"] = "Primary Object Id",
             ["type"] = "`$STRING`",
+            ["short"] = "A string representing the ID of the primary object associated with the event type.",
           },
           {
             ["name"] = "properties",
+            ["title"] = "Properties",
+            ["type"] = "`$ARRAY`",
             ["req"] = true,
             ["short"] = "An array of property objects associated with the event type.",
-            ["type"] = "`$ARRAY`",
           },
           {
             ["name"] = "trackingType",
+            ["title"] = "Tracking Type",
+            ["type"] = "`$STRING`",
             ["short"] = "A string indicating the tracking type of the event.",
-            ["type"] = "`$STRING`",
           },
           {
-            ["format"] = "date-time",
             ["name"] = "updatedAt",
-            ["short"] = "A string representing the date and time when the event type was last updated, in ISO 8601 format.",
+            ["title"] = "Updated At",
             ["type"] = "`$STRING`",
+            ["short"] = "A string representing the date and time when the event type was last updated, in ISO 8601 format.",
+            ["format"] = "date-time",
           },
           {
-            ["format"] = "int32",
             ["name"] = "updatedUserId",
-            ["short"] = "An integer representing the ID of the user who last updated the event type.",
+            ["title"] = "Updated User Id",
             ["type"] = "`$INTEGER`",
+            ["short"] = "An integer representing the ID of the user who last updated the event type.",
+            ["format"] = "int32",
           },
         },
         ["id"] = {
@@ -1120,45 +1174,6 @@ local function make_config()
             ["name"] = "list",
             ["points"] = {
               {
-                ["args"] = {
-                  ["query"] = {
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "query",
-                      ["name"] = "after",
-                      ["orig"] = "after",
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "query",
-                      ["name"] = "include_property",
-                      ["orig"] = "include_property",
-                      ["type"] = "`$BOOLEAN`",
-                    },
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "query",
-                      ["name"] = "limit",
-                      ["orig"] = "limit",
-                      ["type"] = "`$INTEGER`",
-                    },
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "query",
-                      ["name"] = "search_string",
-                      ["orig"] = "search_string",
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "query",
-                      ["name"] = "sort_order",
-                      ["orig"] = "sort_order",
-                      ["type"] = "`$STRING`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/events/2026-09/event-definitions",
@@ -1173,6 +1188,55 @@ local function make_config()
                     ["lit"] = "event-definitions",
                   },
                 },
+                ["parts"] = {
+                  "events",
+                  "2026-09",
+                  "event-definitions",
+                },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {
+                  ["query"] = {
+                    {
+                      ["name"] = "after",
+                      ["orig"] = "after",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                      ["example"] = nil,
+                    },
+                    {
+                      ["name"] = "include_property",
+                      ["orig"] = "include_property",
+                      ["type"] = "`$BOOLEAN`",
+                      ["kind"] = "query",
+                      ["example"] = nil,
+                    },
+                    {
+                      ["name"] = "limit",
+                      ["orig"] = "limit",
+                      ["type"] = "`$INTEGER`",
+                      ["kind"] = "query",
+                      ["example"] = nil,
+                    },
+                    {
+                      ["name"] = "search_string",
+                      ["orig"] = "search_string",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                      ["example"] = nil,
+                    },
+                    {
+                      ["name"] = "sort_order",
+                      ["orig"] = "sort_order",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                      ["example"] = nil,
+                    },
+                  },
+                },
                 ["select"] = {
                   ["exist"] = {
                     "after",
@@ -1182,15 +1246,6 @@ local function make_config()
                     "sort_order",
                   },
                 },
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
-                },
-                ["parts"] = {
-                  "events",
-                  "2026-09",
-                  "event-definitions",
-                },
               },
             },
           },
@@ -1199,87 +1254,78 @@ local function make_config()
           ["ancestors"] = {},
         },
       },
-      ["manage_event_definitions_property"] = {
+      ["property"] = {
         ["fields"] = {
           {
             ["name"] = "description",
-            ["short"] = "A string providing additional information about the property.",
+            ["title"] = "Description",
             ["type"] = "`$STRING`",
+            ["short"] = "A string providing additional information about the property.",
           },
           {
-            ["format"] = "int32",
             ["name"] = "displayOrder",
-            ["short"] = "For not hidden properties, indicates the order to display the property on the record's activity timeline (ex: displayOrder: 0 is at the top).",
+            ["title"] = "Display Order",
             ["type"] = "`$INTEGER`",
+            ["short"] = "For not hidden properties, indicates the order to display the property on the record's activity timeline (ex: displayOrder: 0 is at the top).",
+            ["format"] = "int32",
           },
           {
             ["name"] = "hidden",
-            ["short"] = "Controls whether or not this property is displayed on the record's activity timeline.",
+            ["title"] = "Hidden",
             ["type"] = "`$BOOLEAN`",
+            ["short"] = "Controls whether or not this property is displayed on the record's activity timeline.",
           },
           {
             ["name"] = "id",
+            ["title"] = "Id",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "label",
+            ["title"] = "Label",
+            ["type"] = "`$STRING`",
+            ["req"] = true,
             ["op"] = {
               ["update"] = {
                 ["type"] = "`$STRING`",
               },
             },
-            ["req"] = true,
             ["short"] = "A string representing the display name of the property.",
-            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "name",
-            ["short"] = "A string representing the unique name of the property.",
+            ["title"] = "Name",
             ["type"] = "`$STRING`",
+            ["short"] = "A string representing the unique name of the property.",
           },
           {
             ["name"] = "options",
-            ["short"] = "An array of OptionInput objects that define the possible values for the property.",
+            ["title"] = "Options",
             ["type"] = "`$ARRAY`",
+            ["short"] = "An array of OptionInput objects that define the possible values for the property.",
           },
           {
             ["name"] = "type",
+            ["title"] = "Type",
+            ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "A string indicating the data type of the property.",
-            ["type"] = "`$STRING`",
           },
         },
         ["id"] = {
           ["field"] = "id",
           ["name"] = "id",
         },
-        ["name"] = "manage_event_definitions_property",
+        ["name"] = "property",
         ["op"] = {
           ["create"] = {
             ["input"] = "data",
             ["name"] = "create",
             ["points"] = {
               {
-                ["args"] = {
-                  ["params"] = {
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "param",
-                      ["name"] = "event_name",
-                      ["orig"] = "event_name",
-                      ["reqd"] = true,
-                      ["type"] = "`$STRING`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/events/2026-09/event-definitions/{eventName}/property",
-                ["rename"] = {
-                  ["param"] = {
-                    ["eventName"] = "event_name",
-                  },
-                },
                 ["segments"] = {
                   {
                     ["lit"] = "events",
@@ -1297,21 +1343,38 @@ local function make_config()
                     ["lit"] = "property",
                   },
                 },
-                ["select"] = {
-                  ["exist"] = {
-                    "event_name",
-                  },
-                },
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
-                },
                 ["parts"] = {
                   "events",
                   "2026-09",
                   "event-definitions",
                   "{event_name}",
                   "property",
+                },
+                ["rename"] = {
+                  ["param"] = {
+                    ["eventName"] = "event_name",
+                  },
+                },
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {
+                  ["params"] = {
+                    {
+                      ["name"] = "event_name",
+                      ["orig"] = "event_name",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = nil,
+                    },
+                  },
+                },
+                ["select"] = {
+                  ["exist"] = {
+                    "event_name",
+                  },
                 },
               },
             },
@@ -1321,35 +1384,9 @@ local function make_config()
             ["name"] = "update",
             ["points"] = {
               {
-                ["args"] = {
-                  ["params"] = {
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "param",
-                      ["name"] = "event_definition_id",
-                      ["orig"] = "event_name",
-                      ["reqd"] = true,
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["example"] = nil,
-                      ["kind"] = "param",
-                      ["name"] = "id",
-                      ["orig"] = "property_name",
-                      ["reqd"] = true,
-                      ["type"] = "`$STRING`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "PATCH",
                 ["orig"] = "/events/2026-09/event-definitions/{eventName}/property/{propertyName}",
-                ["rename"] = {
-                  ["param"] = {
-                    ["eventName"] = "event_definition_id",
-                    ["propertyName"] = "id",
-                  },
-                },
                 ["segments"] = {
                   {
                     ["lit"] = "events",
@@ -1370,16 +1407,6 @@ local function make_config()
                     ["var"] = "id",
                   },
                 },
-                ["select"] = {
-                  ["exist"] = {
-                    "event_definition_id",
-                    "id",
-                  },
-                },
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
-                },
                 ["parts"] = {
                   "events",
                   "2026-09",
@@ -1388,6 +1415,42 @@ local function make_config()
                   "property",
                   "{id}",
                 },
+                ["rename"] = {
+                  ["param"] = {
+                    ["eventName"] = "event_definition_id",
+                    ["propertyName"] = "id",
+                  },
+                },
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {
+                  ["params"] = {
+                    {
+                      ["name"] = "event_definition_id",
+                      ["orig"] = "event_name",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = nil,
+                    },
+                    {
+                      ["name"] = "id",
+                      ["orig"] = "property_name",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = nil,
+                    },
+                  },
+                },
+                ["select"] = {
+                  ["exist"] = {
+                    "event_definition_id",
+                    "id",
+                  },
+                },
               },
             },
           },
@@ -1395,7 +1458,7 @@ local function make_config()
         ["relations"] = {
           ["ancestors"] = {
             {
-              "event_definition",
+              "$.main.kit.entity.event_definition",
             },
           },
         },

@@ -121,9 +121,9 @@ Create a new `ManageEventDefinitionsCollectionResponseWithTotalExternal` entity 
 
 **Returns:** `ManageEventDefinitionsCollectionResponseWithTotalExternalEntity` instance.
 
-#### `ManageEventDefinitionsProperty(data?: object)`
+#### `Property(data?: object)`
 
-Create a new `ManageEventDefinitionsProperty` entity instance.
+Create a new `Property` entity instance.
 
 **Parameters:**
 
@@ -131,7 +131,7 @@ Create a new `ManageEventDefinitionsProperty` entity instance.
 | --- | --- | --- |
 | `data` | `object` | Initial entity data. |
 
-**Returns:** `ManageEventDefinitionsPropertyEntity` instance.
+**Returns:** `PropertyEntity` instance.
 
 #### `options()`
 
@@ -608,10 +608,10 @@ Return a copy of the entity options.
 
 ---
 
-## ManageEventDefinitionsPropertyEntity
+## PropertyEntity
 
 ```ts
-const manage_event_definitions_property = client.ManageEventDefinitionsProperty()
+const property = client.Property()
 ```
 
 ### Fields
@@ -647,7 +647,7 @@ const manage_event_definitions_property = client.ManageEventDefinitionsProperty(
 Create a new entity with the given data.
 
 ```ts
-const result = await client.ManageEventDefinitionsProperty().create({
+const result = await client.Property().create({
   event_name: 'example_event_name',
   label: 'example_label',
   type: 'example_type',
@@ -659,7 +659,7 @@ const result = await client.ManageEventDefinitionsProperty().create({
 Update an existing entity. The data must include the entity `id`.
 
 ```ts
-const result = await client.ManageEventDefinitionsProperty().update({
+const result = await client.Property().update({
   event_definition_id: 'event_definition_id',
   id: 'id',
   // Fields to update
@@ -680,7 +680,7 @@ Get or set the entity match criteria. Works the same as `data()`.
 
 #### `make()`
 
-Create a new `ManageEventDefinitionsPropertyEntity` instance with the same client and
+Create a new `PropertyEntity` instance with the same client and
 options.
 
 #### `client()`
@@ -698,14 +698,14 @@ Return a copy of the entity options.
 
 | Feature | Version | Description |
 | --- | --- | --- |
-| `debug` | 0.0.1 | Request/response capture ring buffer for debugging |
-| `idempotency` | 0.0.1 | Idempotency keys for safe retries of mutating operations |
-| `metrics` | 0.0.1 | Statistics capture: per-operation counters and latency |
-| `paging` | 0.0.1 | Pagination signals for list operations |
-| `ratelimit` | 0.0.1 | Client-side rate limiting via a token bucket |
-| `retry` | 0.0.1 | Automatic retry of transient failures with exponential backoff |
-| `test` | 0.0.1 | In-memory mock transport for testing without a live server |
-| `timeout` | 0.0.1 | Per-request timeout with transport abort |
+| `debug` | 0.0.1 | Debug capture |
+| `idempotency` | 0.0.1 | Idempotency |
+| `metrics` | 0.0.1 | Metrics |
+| `paging` | 0.0.1 | Paging |
+| `ratelimit` | 0.0.1 | Rate limiting |
+| `retry` | 0.0.1 | Retry |
+| `test` | 0.0.1 | Test transport |
+| `timeout` | 0.0.1 | Timeout |
 
 
 Features are activated via the `feature` option:
@@ -751,7 +751,7 @@ rather than the transport, so their order does not affect what they observe.
 
 #### `debug`
 
-Request/response capture ring buffer for debugging.
+Debug capture.
 
 **Configuration**
 
@@ -782,7 +782,7 @@ its default unless you name it.
 
 #### `idempotency`
 
-Idempotency keys for safe retries of mutating operations.
+Idempotency.
 
 **Configuration**
 
@@ -813,7 +813,7 @@ its default unless you name it.
 
 #### `metrics`
 
-Statistics capture: per-operation counters and latency.
+Metrics.
 
 **Configuration**
 
@@ -841,7 +841,7 @@ its default unless you name it.
 
 #### `paging`
 
-Pagination signals for list operations.
+Paging.
 
 **Configuration**
 
@@ -876,7 +876,7 @@ its default unless you name it.
 
 #### `ratelimit`
 
-Client-side rate limiting via a token bucket.
+Rate limiting.
 
 **Configuration**
 
@@ -907,7 +907,7 @@ its default unless you name it.
 
 #### `retry`
 
-Automatic retry of transient failures with exponential backoff.
+Retry.
 
 **Configuration**
 
@@ -941,7 +941,7 @@ its default unless you name it.
 
 #### `test`
 
-In-memory mock transport for testing without a live server.
+Test transport.
 
 **Configuration**
 
@@ -972,7 +972,7 @@ its default unless you name it.
 
 #### `timeout`
 
-Per-request timeout with transport abort.
+Timeout.
 
 **Configuration**
 

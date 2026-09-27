@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 // Typed models for the HubspotEvents SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 //
@@ -221,8 +221,8 @@ class ManageEventDefinitionsCollectionResponseWithTotalExternalListMatch
     public ?string $sort_order = null;
 }
 
-/** ManageEventDefinitionsProperty entity data model. */
-class ManageEventDefinitionsProperty
+/** Property entity data model. */
+class Property
 {
     public ?string $description = null;
     public ?int $displayOrder = null;
@@ -234,8 +234,8 @@ class ManageEventDefinitionsProperty
     public string $type;
 }
 
-/** Request payload for ManageEventDefinitionsProperty#create. */
-class ManageEventDefinitionsPropertyCreateData
+/** Request payload for Property#create. */
+class PropertyCreateData
 {
     public string $event_name;
     public ?string $description = null;
@@ -248,8 +248,8 @@ class ManageEventDefinitionsPropertyCreateData
     public string $type;
 }
 
-/** Request payload for ManageEventDefinitionsProperty#update. */
-class ManageEventDefinitionsPropertyUpdateData
+/** Request payload for Property#update. */
+class PropertyUpdateData
 {
     public string $event_definition_id;
     public string $id;

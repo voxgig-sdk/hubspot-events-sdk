@@ -1,0 +1,46 @@
+# BasicPropertyFlow
+
+main: kit: flow: BasicPropertyFlow:
+{
+  entity: "property",
+  kind: "basic",
+  name: "BasicPropertyFlow",
+  step: [
+    {
+      i: {
+        ref: "property_ref01"
+      }
+
+      m: {
+        event_definition_id: "event_definition01",
+        event_name: "event_name01"
+      }
+
+      o: "create"
+    }
+
+    {
+      d: {
+        event_definition_id: "event_definition01"
+      }
+
+      i: {
+        ref: "property_ref01",
+        srcdatavar: "property_ref01_data",
+        suffix: "_up0",
+        textfield: "description"
+      }
+
+      o: "update",
+      s: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-property_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicPropertyFlow"
+}

@@ -1,0 +1,213 @@
+# Entity: property
+
+main: kit: entity: property: {
+
+  alias: field: {}
+
+  fields: {
+    description: {
+      h: "Description"
+      n: "description"
+      r: false
+      sh: "A string providing additional information about the property."
+      t: "`$STRING`"
+    }
+    displayOrder: {
+      fo: "int32"
+      h: "Display Order"
+      n: "displayOrder"
+      r: false
+      sh: "For not hidden properties, indicates the order to display the property on the record's activity timeline (ex: displayOrder: 0 is at the top)."
+      t: "`$INTEGER`"
+    }
+    hidden: {
+      h: "Hidden"
+      n: "hidden"
+      r: false
+      sh: "Controls whether or not this property is displayed on the record's activity timeline."
+      t: "`$BOOLEAN`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+    label: {
+      h: "Label"
+      n: "label"
+      op: {
+        update: {
+          req: false
+          type: "`$STRING`"
+        }
+      }
+      r: true
+      sh: "A string representing the display name of the property."
+      t: "`$STRING`"
+    }
+    name: {
+      h: "Name"
+      n: "name"
+      r: false
+      sh: "A string representing the unique name of the property."
+      t: "`$STRING`"
+    }
+    options: {
+      h: "Options"
+      n: "options"
+      r: false
+      sh: "An array of OptionInput objects that define the possible values for the property."
+      t: "`$ARRAY`"
+    }
+    type: {
+      h: "Type"
+      n: "type"
+      r: true
+      sh: "A string indicating the data type of the property."
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "property"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /events/2026-09/event-definitions/{eventName}/property"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: null
+                k: "param"
+                n: "event_name"
+                or: "event_name"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/events/2026-09/event-definitions/{eventName}/property"
+          q: {
+            exist: [
+              "event_name"
+            ]
+          }
+          r: {
+            param: {
+              eventName: "event_name"
+            }
+          }
+          s: [
+            {
+              lit: "events"
+            }
+            {
+              lit: "2026-09"
+            }
+            {
+              lit: "event-definitions"
+            }
+            {
+              var: "event_name"
+            }
+            {
+              lit: "property"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          co: {
+            id: "PATCH /events/2026-09/event-definitions/{eventName}/property/{propertyName}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: null
+                k: "param"
+                n: "event_definition_id"
+                or: "event_name"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: null
+                k: "param"
+                n: "id"
+                or: "property_name"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PATCH"
+          o: "/events/2026-09/event-definitions/{eventName}/property/{propertyName}"
+          q: {
+            exist: [
+              "event_definition_id"
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              eventName: "event_definition_id"
+              propertyName: "id"
+            }
+          }
+          s: [
+            {
+              lit: "events"
+            }
+            {
+              lit: "2026-09"
+            }
+            {
+              lit: "event-definitions"
+            }
+            {
+              var: "event_definition_id"
+            }
+            {
+              lit: "property"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.event_definition")]
+  ]
+
+}

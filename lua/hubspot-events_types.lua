@@ -1,7 +1,7 @@
 -- Typed models for the HubspotEvents SDK (LuaLS annotations).
 --
--- GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
--- params (op.<name>.points[].args.params[]). Field/param types come from the
+-- GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+-- params (op.<name>.points[].g.params[]). Field/param types come from the
 -- canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 -- @voxgig/apidef VALID_CANON). Annotations only — no runtime effect. Do not
 -- edit by hand.
@@ -172,7 +172,7 @@
 ---@field search_string? string
 ---@field sort_order? string
 
----@class ManageEventDefinitionsProperty
+---@class Property
 ---@field description? string
 ---@field displayOrder? number
 ---@field hidden? boolean
@@ -182,7 +182,7 @@
 ---@field options? table
 ---@field type string
 
----@class ManageEventDefinitionsPropertyCreateData
+---@class PropertyCreateData
 ---@field event_name string
 ---@field description? string
 ---@field displayOrder? number
@@ -193,7 +193,7 @@
 ---@field options? table
 ---@field type string
 
----@class ManageEventDefinitionsPropertyUpdateData
+---@class PropertyUpdateData
 ---@field event_definition_id string
 ---@field id string
 ---@field description? string

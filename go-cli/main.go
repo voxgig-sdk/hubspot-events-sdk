@@ -20,7 +20,7 @@ import (
 const prompt = "hubspot-events"
 
 // entitiesHelp is the space-separated entity list shown by /help.
-const entitiesHelp = "basic batch event_definition events_collection_response_external_unified_event events_visible_external_event_type_name manage_event_definitions_collection_response_with_total_external manage_event_definitions_property"
+const entitiesHelp = "basic batch event_definition events_collection_response_external_unified_event events_visible_external_event_type_name manage_event_definitions_collection_response_with_total_external property"
 
 func main() {
 	os.Exit(run(os.Args[1:], os.Stdin, os.Stdout, os.Stderr))

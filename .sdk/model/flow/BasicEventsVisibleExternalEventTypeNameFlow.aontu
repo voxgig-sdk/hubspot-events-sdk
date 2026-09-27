@@ -1,0 +1,22 @@
+# BasicEventsVisibleExternalEventTypeNameFlow
+
+main: kit: flow: BasicEventsVisibleExternalEventTypeNameFlow:
+{
+  entity: "events_visible_external_event_type_name",
+  kind: "basic",
+  name: "BasicEventsVisibleExternalEventTypeNameFlow",
+  step: [
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "events_visible_external_event_type_name_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicEventsVisibleExternalEventTypeNameFlow"
+}

@@ -151,7 +151,7 @@ Meta-commands use the `/` prefix (everything else on a line is evaluated as boru
 
 The 7 entities this SDK exposes (any is valid as `<entity>`):
 
-basic batch event_definition events_collection_response_external_unified_event events_visible_external_event_type_name manage_event_definitions_collection_response_with_total_external manage_event_definitions_property
+basic batch event_definition events_collection_response_external_unified_event events_visible_external_event_type_name manage_event_definitions_collection_response_with_total_external property
 
 ## Explanation
 

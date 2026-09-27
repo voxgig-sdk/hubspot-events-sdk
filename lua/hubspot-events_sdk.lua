@@ -437,15 +437,15 @@ function HubspotEventsSDK:ManageEventDefinitionsCollectionResponseWithTotalExter
 end
 
 
--- Idiomatic facade: client:ManageEventDefinitionsProperty():list() / client:ManageEventDefinitionsProperty():load({ id = ... })
+-- Idiomatic facade: client:Property():list() / client:Property():load({ id = ... })
 -- Entity access is capitalised (PascalCase) for parity with the other SDKs.
-function HubspotEventsSDK:ManageEventDefinitionsProperty(data)
-  local EntityMod = require("entity.manage_event_definitions_property_entity")
+function HubspotEventsSDK:Property(data)
+  local EntityMod = require("entity.property_entity")
   if data == nil then
-    if self._manage_event_definitions_property == nil then
-      self._manage_event_definitions_property = EntityMod.new(self, nil)
+    if self._property == nil then
+      self._property = EntityMod.new(self, nil)
     end
-    return self._manage_event_definitions_property
+    return self._property
   end
   return EntityMod.new(self, data)
 end

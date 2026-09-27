@@ -19,7 +19,6 @@ import type {
   EventsVisibleExternalEventTypeNameListMatch,
 } from '../HubspotEventsTypes'
 
-// TODO: needs Entity superclass
 class EventsVisibleExternalEventTypeNameEntity extends HubspotEventsEntityBase<EventsVisibleExternalEventTypeName> {
 
   constructor(client: HubspotEventsSDK, entopts: any) {

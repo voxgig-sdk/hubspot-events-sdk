@@ -1,0 +1,249 @@
+# Entity: manage_event_definitions_collection_response_with_total_external
+
+main: kit: entity: manage_event_definitions_collection_response_with_total_external: {
+
+  alias: field: {}
+
+  fields: {
+    archived: {
+      h: "Archived"
+      n: "archived"
+      r: true
+      sh: "A boolean indicating whether the event type is archived."
+      t: "`$BOOLEAN`"
+    }
+    associations: {
+      h: "Associations"
+      n: "associations"
+      r: true
+      sh: "An array of association definitions related to the event type."
+      t: "`$ARRAY`"
+    }
+    comboEventRules: {
+      h: "Combo Event Rules"
+      n: "comboEventRules"
+      r: true
+      t: "`$OBJECT`"
+      union: {
+        branches: 21
+        count: 23
+        depth: 20
+      }
+    }
+    createdAt: {
+      fo: "date-time"
+      h: "Created At"
+      n: "createdAt"
+      r: false
+      sh: "A string representing the date and time when the event type was created, in ISO 8601 format."
+      t: "`$STRING`"
+    }
+    createdUserId: {
+      fo: "int32"
+      h: "Created User Id"
+      n: "createdUserId"
+      r: false
+      sh: "An integer representing the ID of the user who created the event type."
+      t: "`$INTEGER`"
+    }
+    customMatchingId: {
+      h: "Custom Matching Id"
+      n: "customMatchingId"
+      r: true
+      t: "`$OBJECT`"
+    }
+    description: {
+      h: "Description"
+      n: "description"
+      r: false
+      sh: "A string providing a description of the event type."
+      t: "`$STRING`"
+    }
+    detailTemplate: {
+      h: "Detail Template"
+      n: "detailTemplate"
+      r: false
+      sh: "The rendering template for the body of the CRM timeline activity card."
+      t: "`$STRING`"
+    }
+    fullyQualifiedName: {
+      h: "Fully Qualified Name"
+      n: "fullyQualifiedName"
+      r: true
+      sh: "A string representing the fully qualified name of the event type."
+      t: "`$STRING`"
+    }
+    headerTemplate: {
+      h: "Header Template"
+      n: "headerTemplate"
+      r: false
+      sh: "The rendering template for the header of the CRM timeline activity card."
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "A string representing the unique identifier of the event type."
+      t: "`$STRING`"
+    }
+    labels: {
+      h: "Labels"
+      n: "labels"
+      r: true
+      t: "`$OBJECT`"
+    }
+    name: {
+      h: "Name"
+      n: "name"
+      r: true
+      sh: "A string representing the name of the event type."
+      t: "`$STRING`"
+    }
+    objectTypeId: {
+      h: "Object Type Id"
+      n: "objectTypeId"
+      r: true
+      sh: "A string representing the object type ID associated with the event type."
+      t: "`$STRING`"
+    }
+    primaryObject: {
+      h: "Primary Object"
+      n: "primaryObject"
+      r: false
+      sh: "A string representing the primary object associated with the event type."
+      t: "`$STRING`"
+    }
+    primaryObjectId: {
+      h: "Primary Object Id"
+      n: "primaryObjectId"
+      r: false
+      sh: "A string representing the ID of the primary object associated with the event type."
+      t: "`$STRING`"
+    }
+    properties: {
+      h: "Properties"
+      n: "properties"
+      r: true
+      sh: "An array of property objects associated with the event type."
+      t: "`$ARRAY`"
+    }
+    trackingType: {
+      h: "Tracking Type"
+      n: "trackingType"
+      r: false
+      sh: "A string indicating the tracking type of the event."
+      t: "`$STRING`"
+    }
+    updatedAt: {
+      fo: "date-time"
+      h: "Updated At"
+      n: "updatedAt"
+      r: false
+      sh: "A string representing the date and time when the event type was last updated, in ISO 8601 format."
+      t: "`$STRING`"
+    }
+    updatedUserId: {
+      fo: "int32"
+      h: "Updated User Id"
+      n: "updatedUserId"
+      r: false
+      sh: "An integer representing the ID of the user who last updated the event type."
+      t: "`$INTEGER`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "manage_event_definitions_collection_response_with_total_external"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /events/2026-09/event-definitions"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: null
+                k: "query"
+                n: "after"
+                or: "after"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: null
+                k: "query"
+                n: "include_property"
+                or: "include_property"
+                r: false
+                t: "`$BOOLEAN`"
+              }
+              {
+                ex: null
+                k: "query"
+                n: "limit"
+                or: "limit"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: null
+                k: "query"
+                n: "search_string"
+                or: "search_string"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: null
+                k: "query"
+                n: "sort_order"
+                or: "sort_order"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/events/2026-09/event-definitions"
+          q: {
+            exist: [
+              "after"
+              "include_property"
+              "limit"
+              "search_string"
+              "sort_order"
+            ]
+          }
+          s: [
+            {
+              lit: "events"
+            }
+            {
+              lit: "2026-09"
+            }
+            {
+              lit: "event-definitions"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

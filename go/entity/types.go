@@ -1,7 +1,7 @@
 // Typed models for the HubspotEvents SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,13 +14,6 @@ import (
 
 // Basic is the typed data model for the basic entity.
 type Basic struct {
-	Email *string `json:"email,omitempty"`
-	EventName string `json:"eventName"`
-	ObjectId *string `json:"objectId,omitempty"`
-	OccurredAt *string `json:"occurredAt,omitempty"`
-	Properties map[string]any `json:"properties"`
-	Utk *string `json:"utk,omitempty"`
-	Uuid *string `json:"uuid,omitempty"`
 }
 
 // BasicCreateData is the typed request payload for Basic.CreateTyped.
@@ -41,7 +34,6 @@ type BasicRemoveMatch struct {
 
 // Batch is the typed data model for the batch entity.
 type Batch struct {
-	Inputs []any `json:"inputs"`
 }
 
 // BatchCreateData is the typed request payload for Batch.CreateTyped.
@@ -51,30 +43,6 @@ type BatchCreateData struct {
 
 // EventDefinition is the typed data model for the event_definition entity.
 type EventDefinition struct {
-	Archived bool `json:"archived"`
-	Associations []any `json:"associations"`
-	ComboEventRules map[string]any `json:"comboEventRules"`
-	CreatedAt *string `json:"createdAt,omitempty"`
-	CreatedUserId *int `json:"createdUserId,omitempty"`
-	CustomMatchingId map[string]any `json:"customMatchingId"`
-	Description *string `json:"description,omitempty"`
-	DetailTemplate *string `json:"detailTemplate,omitempty"`
-	FullyQualifiedName string `json:"fullyQualifiedName"`
-	HeaderTemplate *string `json:"headerTemplate,omitempty"`
-	Id string `json:"id"`
-	IncludeDefaultProperties bool `json:"includeDefaultProperties"`
-	Label string `json:"label"`
-	Labels map[string]any `json:"labels"`
-	Name string `json:"name"`
-	ObjectTypeId string `json:"objectTypeId"`
-	PrimaryObject *string `json:"primaryObject,omitempty"`
-	PrimaryObjectId *string `json:"primaryObjectId,omitempty"`
-	Properties []any `json:"properties"`
-	PropertyDefinitions []any `json:"propertyDefinitions"`
-	PropertyOrder []any `json:"propertyOrder"`
-	TrackingType *string `json:"trackingType,omitempty"`
-	UpdatedAt *string `json:"updatedAt,omitempty"`
-	UpdatedUserId *int `json:"updatedUserId,omitempty"`
 }
 
 // EventDefinitionLoadMatch is the typed request payload for EventDefinition.LoadTyped.
@@ -140,12 +108,6 @@ type EventDefinitionUpdateData struct {
 
 // EventsCollectionResponseExternalUnifiedEvent is the typed data model for the events_collection_response_external_unified_event entity.
 type EventsCollectionResponseExternalUnifiedEvent struct {
-	EventType string `json:"eventType"`
-	Id string `json:"id"`
-	ObjectId string `json:"objectId"`
-	ObjectType string `json:"objectType"`
-	OccurredAt string `json:"occurredAt"`
-	Properties map[string]any `json:"properties"`
 }
 
 // EventsCollectionResponseExternalUnifiedEventListMatch is the typed request payload for EventsCollectionResponseExternalUnifiedEvent.ListTyped.
@@ -167,7 +129,6 @@ type EventsCollectionResponseExternalUnifiedEventListMatch struct {
 
 // EventsVisibleExternalEventTypeName is the typed data model for the events_visible_external_event_type_name entity.
 type EventsVisibleExternalEventTypeName struct {
-	EventTypes []any `json:"eventTypes"`
 }
 
 // EventsVisibleExternalEventTypeNameListMatch is the typed request payload for EventsVisibleExternalEventTypeName.ListTyped.
@@ -177,26 +138,6 @@ type EventsVisibleExternalEventTypeNameListMatch struct {
 
 // ManageEventDefinitionsCollectionResponseWithTotalExternal is the typed data model for the manage_event_definitions_collection_response_with_total_external entity.
 type ManageEventDefinitionsCollectionResponseWithTotalExternal struct {
-	Archived bool `json:"archived"`
-	Associations []any `json:"associations"`
-	ComboEventRules map[string]any `json:"comboEventRules"`
-	CreatedAt *string `json:"createdAt,omitempty"`
-	CreatedUserId *int `json:"createdUserId,omitempty"`
-	CustomMatchingId map[string]any `json:"customMatchingId"`
-	Description *string `json:"description,omitempty"`
-	DetailTemplate *string `json:"detailTemplate,omitempty"`
-	FullyQualifiedName string `json:"fullyQualifiedName"`
-	HeaderTemplate *string `json:"headerTemplate,omitempty"`
-	Id string `json:"id"`
-	Labels map[string]any `json:"labels"`
-	Name string `json:"name"`
-	ObjectTypeId string `json:"objectTypeId"`
-	PrimaryObject *string `json:"primaryObject,omitempty"`
-	PrimaryObjectId *string `json:"primaryObjectId,omitempty"`
-	Properties []any `json:"properties"`
-	TrackingType *string `json:"trackingType,omitempty"`
-	UpdatedAt *string `json:"updatedAt,omitempty"`
-	UpdatedUserId *int `json:"updatedUserId,omitempty"`
 }
 
 // ManageEventDefinitionsCollectionResponseWithTotalExternalListMatch is the typed request payload for ManageEventDefinitionsCollectionResponseWithTotalExternal.ListTyped.
@@ -208,20 +149,12 @@ type ManageEventDefinitionsCollectionResponseWithTotalExternalListMatch struct {
 	SortOrder *string `json:"sort_order,omitempty"`
 }
 
-// ManageEventDefinitionsProperty is the typed data model for the manage_event_definitions_property entity.
-type ManageEventDefinitionsProperty struct {
-	Description *string `json:"description,omitempty"`
-	DisplayOrder *int `json:"displayOrder,omitempty"`
-	Hidden *bool `json:"hidden,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Label string `json:"label"`
-	Name *string `json:"name,omitempty"`
-	Options *[]any `json:"options,omitempty"`
-	Type string `json:"type"`
+// Property is the typed data model for the property entity.
+type Property struct {
 }
 
-// ManageEventDefinitionsPropertyCreateData is the typed request payload for ManageEventDefinitionsProperty.CreateTyped.
-type ManageEventDefinitionsPropertyCreateData struct {
+// PropertyCreateData is the typed request payload for Property.CreateTyped.
+type PropertyCreateData struct {
 	EventName string `json:"event_name"`
 	Description *string `json:"description,omitempty"`
 	DisplayOrder *int `json:"displayOrder,omitempty"`
@@ -233,8 +166,8 @@ type ManageEventDefinitionsPropertyCreateData struct {
 	Type string `json:"type"`
 }
 
-// ManageEventDefinitionsPropertyUpdateData is the typed request payload for ManageEventDefinitionsProperty.UpdateTyped.
-type ManageEventDefinitionsPropertyUpdateData struct {
+// PropertyUpdateData is the typed request payload for Property.UpdateTyped.
+type PropertyUpdateData struct {
 	EventDefinitionId string `json:"event_definition_id"`
 	Id string `json:"id"`
 	Description *string `json:"description,omitempty"`

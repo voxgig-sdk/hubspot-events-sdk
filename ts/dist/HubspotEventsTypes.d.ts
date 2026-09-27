@@ -164,7 +164,7 @@ export interface ManageEventDefinitionsCollectionResponseWithTotalExternalListMa
     search_string?: string;
     sort_order?: string;
 }
-export interface ManageEventDefinitionsProperty {
+export interface Property {
     description?: string;
     displayOrder?: number;
     hidden?: boolean;
@@ -174,7 +174,7 @@ export interface ManageEventDefinitionsProperty {
     options?: any[];
     type: string;
 }
-export interface ManageEventDefinitionsPropertyCreateData {
+export interface PropertyCreateData {
     event_name: string;
     description?: string;
     displayOrder?: number;
@@ -185,7 +185,7 @@ export interface ManageEventDefinitionsPropertyCreateData {
     options?: any[];
     type: string;
 }
-export interface ManageEventDefinitionsPropertyUpdateData {
+export interface PropertyUpdateData {
     event_definition_id: string;
     id: string;
     description?: string;

@@ -234,7 +234,7 @@ class Config {
         manage_event_definitions_collection_response_with_total_external: {
         },
   
-        manage_event_definitions_property: {
+        property: {
         },
   
     }
@@ -246,41 +246,48 @@ class Config {
       "fields": [
         {
           "name": "email",
-          "short": "The visitor's email address.",
-          "type": "`$STRING`"
+          "title": "Email",
+          "type": "`$STRING`",
+          "short": "The visitor's email address."
         },
         {
           "name": "eventName",
+          "title": "Event Name",
+          "type": "`$STRING`",
           "req": true,
-          "short": "The event's fully qualified name.",
-          "type": "`$STRING`"
+          "short": "The event's fully qualified name."
         },
         {
           "name": "objectId",
-          "short": "The ID of the record for which the event occurred (e.g., contact ID or visitor ID).",
-          "type": "`$STRING`"
+          "title": "Object Id",
+          "type": "`$STRING`",
+          "short": "The ID of the record for which the event occurred (e.g., contact ID or visitor ID)."
         },
         {
-          "format": "date-time",
           "name": "occurredAt",
+          "title": "Occurred At",
+          "type": "`$STRING`",
           "short": "The time when this event occurred.",
-          "type": "`$STRING`"
+          "format": "date-time"
         },
         {
           "name": "properties",
+          "title": "Properties",
+          "type": "`$OBJECT`",
           "req": true,
-          "short": "The event properties to update.",
-          "type": "`$OBJECT`"
+          "short": "The event properties to update."
         },
         {
           "name": "utk",
-          "short": "The visitor's usertoken.",
-          "type": "`$STRING`"
+          "title": "Utk",
+          "type": "`$STRING`",
+          "short": "The visitor's usertoken."
         },
         {
           "name": "uuid",
-          "short": "A unique identifier for the event occurrence.",
-          "type": "`$STRING`"
+          "title": "Uuid",
+          "type": "`$STRING`",
+          "short": "A unique identifier for the event occurrence."
         }
       ],
       "name": "basic",
@@ -290,7 +297,6 @@ class Config {
           "name": "create",
           "points": [
             {
-              "args": {},
               "kind": "http",
               "method": "POST",
               "orig": "/events/2026-09/send",
@@ -305,16 +311,18 @@ class Config {
                   "lit": "send"
                 }
               ],
-              "select": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "events",
                 "2026-09",
                 "send"
-              ]
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {},
+              "select": {}
             }
           ]
         },
@@ -323,35 +331,9 @@ class Config {
           "name": "remove",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "example": null,
-                    "kind": "param",
-                    "name": "event_definition_id",
-                    "orig": "event_name",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": null,
-                    "kind": "param",
-                    "name": "property_name",
-                    "orig": "property_name",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "DELETE",
               "orig": "/events/2026-09/event-definitions/{eventName}/property/{propertyName}",
-              "rename": {
-                "param": {
-                  "eventName": "event_definition_id",
-                  "propertyName": "property_name"
-                }
-              },
               "segments": [
                 {
                   "lit": "events"
@@ -372,16 +354,6 @@ class Config {
                   "var": "property_name"
                 }
               ],
-              "select": {
-                "exist": [
-                  "event_definition_id",
-                  "property_name"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "events",
                 "2026-09",
@@ -389,29 +361,48 @@ class Config {
                 "{event_definition_id}",
                 "property",
                 "{property_name}"
-              ]
-            },
-            {
+              ],
+              "rename": {
+                "param": {
+                  "eventName": "event_definition_id",
+                  "propertyName": "property_name"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
               "args": {
                 "params": [
                   {
-                    "example": null,
-                    "kind": "param",
-                    "name": "event_name",
+                    "name": "event_definition_id",
                     "orig": "event_name",
+                    "type": "`$STRING`",
+                    "kind": "param",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "example": null
+                  },
+                  {
+                    "name": "property_name",
+                    "orig": "property_name",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": null
                   }
                 ]
               },
+              "select": {
+                "exist": [
+                  "event_definition_id",
+                  "property_name"
+                ]
+              }
+            },
+            {
               "kind": "http",
               "method": "DELETE",
               "orig": "/events/2026-09/event-definitions/{eventName}",
-              "rename": {
-                "param": {
-                  "eventName": "event_name"
-                }
-              },
               "segments": [
                 {
                   "lit": "events"
@@ -426,21 +417,38 @@ class Config {
                   "var": "event_name"
                 }
               ],
-              "select": {
-                "exist": [
-                  "event_name"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "events",
                 "2026-09",
                 "event-definitions",
                 "{event_name}"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "eventName": "event_name"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "event_name",
+                    "orig": "event_name",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": null
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "event_name"
+                ]
+              }
             }
           ]
         }
@@ -448,11 +456,11 @@ class Config {
       "relations": {
         "ancestors": [
           [
-            "event_definition"
+            "$.main.kit.entity.event_definition"
           ],
           [
-            "event_definition",
-            "property"
+            "$.main.kit.entity.event_definition",
+            "$.main.kit.entity.property"
           ]
         ]
       }
@@ -461,9 +469,10 @@ class Config {
       "fields": [
         {
           "name": "inputs",
+          "title": "Inputs",
+          "type": "`$ARRAY`",
           "req": true,
-          "short": "An array of BehavioralEventHttpCompletionRequest objects, each representing a single behavioral event to be completed.",
-          "type": "`$ARRAY`"
+          "short": "An array of BehavioralEventHttpCompletionRequest objects, each representing a single behavioral event to be completed."
         }
       ],
       "name": "batch",
@@ -473,7 +482,6 @@ class Config {
           "name": "create",
           "points": [
             {
-              "args": {},
               "kind": "http",
               "method": "POST",
               "orig": "/events/2026-09/send/batch",
@@ -491,17 +499,19 @@ class Config {
                   "lit": "batch"
                 }
               ],
-              "select": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "events",
                 "2026-09",
                 "send",
                 "batch"
-              ]
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {},
+              "select": {}
             }
           ]
         }
@@ -514,153 +524,172 @@ class Config {
       "fields": [
         {
           "name": "archived",
+          "title": "Archived",
+          "type": "`$BOOLEAN`",
           "req": true,
-          "short": "A boolean indicating whether the event type is archived.",
-          "type": "`$BOOLEAN`"
+          "short": "A boolean indicating whether the event type is archived."
         },
         {
           "name": "associations",
+          "title": "Associations",
+          "type": "`$ARRAY`",
           "req": true,
-          "short": "An array of association definitions related to the event type.",
-          "type": "`$ARRAY`"
+          "short": "An array of association definitions related to the event type."
         },
         {
           "name": "comboEventRules",
-          "req": true,
+          "title": "Combo Event Rules",
           "type": "`$OBJECT`",
-          "union": {
-            "branches": 21,
-            "count": 17,
-            "depth": 20
-          }
+          "req": true
         },
         {
-          "format": "date-time",
           "name": "createdAt",
+          "title": "Created At",
+          "type": "`$STRING`",
           "short": "A string representing the date and time when the event type was created, in ISO 8601 format.",
-          "type": "`$STRING`"
+          "format": "date-time"
         },
         {
-          "format": "int32",
           "name": "createdUserId",
+          "title": "Created User Id",
+          "type": "`$INTEGER`",
           "short": "An integer representing the ID of the user who created the event type.",
-          "type": "`$INTEGER`"
+          "format": "int32"
         },
         {
           "name": "customMatchingId",
-          "req": true,
-          "type": "`$OBJECT`"
+          "title": "Custom Matching Id",
+          "type": "`$OBJECT`",
+          "req": true
         },
         {
           "name": "description",
-          "short": "A string providing a description of the event type.",
-          "type": "`$STRING`"
+          "title": "Description",
+          "type": "`$STRING`",
+          "short": "A string providing a description of the event type."
         },
         {
           "name": "detailTemplate",
-          "short": "The rendering template for the body of the CRM timeline activity card.",
-          "type": "`$STRING`"
+          "title": "Detail Template",
+          "type": "`$STRING`",
+          "short": "The rendering template for the body of the CRM timeline activity card."
         },
         {
           "name": "fullyQualifiedName",
+          "title": "Fully Qualified Name",
+          "type": "`$STRING`",
           "req": true,
-          "short": "A string representing the fully qualified name of the event type.",
-          "type": "`$STRING`"
+          "short": "A string representing the fully qualified name of the event type."
         },
         {
           "name": "headerTemplate",
-          "short": "The rendering template for the header of the CRM timeline activity card.",
-          "type": "`$STRING`"
+          "title": "Header Template",
+          "type": "`$STRING`",
+          "short": "The rendering template for the header of the CRM timeline activity card."
         },
         {
           "name": "id",
+          "title": "Id",
+          "type": "`$STRING`",
           "req": true,
-          "short": "A string representing the unique identifier of the event type.",
-          "type": "`$STRING`"
+          "short": "A string representing the unique identifier of the event type."
         },
         {
           "name": "includeDefaultProperties",
+          "title": "Include Default Properties",
+          "type": "`$BOOLEAN`",
           "req": true,
-          "short": "A boolean indicating whether default properties should be included.",
-          "type": "`$BOOLEAN`"
+          "short": "A boolean indicating whether default properties should be included."
         },
         {
           "name": "label",
+          "title": "Label",
+          "type": "`$STRING`",
+          "req": true,
           "op": {
             "update": {
               "type": "`$STRING`"
             }
           },
-          "req": true,
-          "short": "A string representing the label of the event type.",
-          "type": "`$STRING`"
+          "short": "A string representing the label of the event type."
         },
         {
           "name": "labels",
-          "req": true,
-          "type": "`$OBJECT`"
+          "title": "Labels",
+          "type": "`$OBJECT`",
+          "req": true
         },
         {
           "name": "name",
+          "title": "Name",
+          "type": "`$STRING`",
+          "req": true,
           "op": {
             "create": {
               "type": "`$STRING`"
             }
           },
-          "req": true,
-          "short": "A string representing the name of the event type.",
-          "type": "`$STRING`"
+          "short": "A string representing the name of the event type."
         },
         {
           "name": "objectTypeId",
+          "title": "Object Type Id",
+          "type": "`$STRING`",
           "req": true,
-          "short": "A string representing the object type ID associated with the event type.",
-          "type": "`$STRING`"
+          "short": "A string representing the object type ID associated with the event type."
         },
         {
           "name": "primaryObject",
-          "short": "A string representing the primary object associated with the event type.",
-          "type": "`$STRING`"
+          "title": "Primary Object",
+          "type": "`$STRING`",
+          "short": "A string representing the primary object associated with the event type."
         },
         {
           "name": "primaryObjectId",
-          "short": "A string representing the ID of the primary object associated with the event type.",
-          "type": "`$STRING`"
+          "title": "Primary Object Id",
+          "type": "`$STRING`",
+          "short": "A string representing the ID of the primary object associated with the event type."
         },
         {
           "name": "properties",
+          "title": "Properties",
+          "type": "`$ARRAY`",
           "req": true,
-          "short": "An array of property objects associated with the event type.",
-          "type": "`$ARRAY`"
+          "short": "An array of property objects associated with the event type."
         },
         {
           "name": "propertyDefinitions",
+          "title": "Property Definitions",
+          "type": "`$ARRAY`",
           "req": true,
-          "short": "An array of property definitions, each represented by an ExternalBehavioralEventPropertyCreate object.",
-          "type": "`$ARRAY`"
+          "short": "An array of property definitions, each represented by an ExternalBehavioralEventPropertyCreate object."
         },
         {
           "name": "propertyOrder",
+          "title": "Property Order",
+          "type": "`$ARRAY`",
           "req": true,
-          "short": "Specifies the ordering and visibility of event properties when rendered on the CRM timeline activity card.",
-          "type": "`$ARRAY`"
+          "short": "Specifies the ordering and visibility of event properties when rendered on the CRM timeline activity card."
         },
         {
           "name": "trackingType",
-          "short": "A string indicating the tracking type of the event.",
-          "type": "`$STRING`"
+          "title": "Tracking Type",
+          "type": "`$STRING`",
+          "short": "A string indicating the tracking type of the event."
         },
         {
-          "format": "date-time",
           "name": "updatedAt",
+          "title": "Updated At",
+          "type": "`$STRING`",
           "short": "A string representing the date and time when the event type was last updated, in ISO 8601 format.",
-          "type": "`$STRING`"
+          "format": "date-time"
         },
         {
-          "format": "int32",
           "name": "updatedUserId",
+          "title": "Updated User Id",
+          "type": "`$INTEGER`",
           "short": "An integer representing the ID of the user who last updated the event type.",
-          "type": "`$INTEGER`"
+          "format": "int32"
         }
       ],
       "id": {
@@ -674,7 +703,6 @@ class Config {
           "name": "create",
           "points": [
             {
-              "args": {},
               "kind": "http",
               "method": "POST",
               "orig": "/events/2026-09/event-definitions",
@@ -689,16 +717,18 @@ class Config {
                   "lit": "event-definitions"
                 }
               ],
-              "select": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "events",
                 "2026-09",
                 "event-definitions"
-              ]
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {},
+              "select": {}
             }
           ]
         },
@@ -707,26 +737,9 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "example": null,
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "event_name",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/events/2026-09/event-definitions/{eventName}",
-              "rename": {
-                "param": {
-                  "eventName": "id"
-                }
-              },
               "segments": [
                 {
                   "lit": "events"
@@ -741,21 +754,38 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "events",
                 "2026-09",
                 "event-definitions",
                 "{id}"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "eventName": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "event_name",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": null
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              }
             }
           ]
         },
@@ -764,26 +794,9 @@ class Config {
           "name": "update",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "example": null,
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "event_name",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "PATCH",
               "orig": "/events/2026-09/event-definitions/{eventName}",
-              "rename": {
-                "param": {
-                  "eventName": "id"
-                }
-              },
               "segments": [
                 {
                   "lit": "events"
@@ -798,21 +811,38 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "events",
                 "2026-09",
                 "event-definitions",
                 "{id}"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "eventName": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "event_name",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": null
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              }
             }
           ]
         }
@@ -825,40 +855,46 @@ class Config {
       "fields": [
         {
           "name": "eventType",
+          "title": "Event Type",
+          "type": "`$STRING`",
           "req": true,
-          "short": "The format of the `eventType` string is `ae{appId}_{eventTypeLabel}`, `pe{portalId}_{eventTypeLabel}`, or just `e_{eventTypeLabel}` for HubSpot events.",
-          "type": "`$STRING`"
+          "short": "The format of the `eventType` string is `ae{appId}_{eventTypeLabel}`, `pe{portalId}_{eventTypeLabel}`, or just `e_{eventTypeLabel}` for HubSpot events."
         },
         {
           "name": "id",
+          "title": "Id",
+          "type": "`$STRING`",
           "req": true,
-          "short": "A unique identifier for the event.",
-          "type": "`$STRING`"
+          "short": "A unique identifier for the event."
         },
         {
           "name": "objectId",
+          "title": "Object Id",
+          "type": "`$STRING`",
           "req": true,
-          "short": "The objectId of the object which did the event.",
-          "type": "`$STRING`"
+          "short": "The objectId of the object which did the event."
         },
         {
           "name": "objectType",
+          "title": "Object Type",
+          "type": "`$STRING`",
           "req": true,
-          "short": "The objectType for the object which did the event.",
-          "type": "`$STRING`"
+          "short": "The objectType for the object which did the event."
         },
         {
-          "format": "date-time",
           "name": "occurredAt",
+          "title": "Occurred At",
+          "type": "`$STRING`",
           "req": true,
           "short": "An ISO 8601 timestamp when the event occurred.",
-          "type": "`$STRING`"
+          "format": "date-time"
         },
         {
           "name": "properties",
+          "title": "Properties",
+          "type": "`$OBJECT`",
           "req": true,
-          "short": "A key-value map of event-specific properties.",
-          "type": "`$OBJECT`"
+          "short": "A key-value map of event-specific properties."
         }
       ],
       "id": {
@@ -872,101 +908,6 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {
-                "query": [
-                  {
-                    "example": null,
-                    "kind": "query",
-                    "name": "after",
-                    "orig": "after",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": null,
-                    "kind": "query",
-                    "name": "before",
-                    "orig": "before",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": null,
-                    "kind": "query",
-                    "name": "event_type",
-                    "orig": "event_type",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": null,
-                    "kind": "query",
-                    "name": "id",
-                    "orig": "id",
-                    "type": "`$ARRAY`"
-                  },
-                  {
-                    "example": null,
-                    "kind": "query",
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "example": null,
-                    "kind": "query",
-                    "name": "object_id",
-                    "orig": "object_id",
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "example": null,
-                    "kind": "query",
-                    "name": "object_property_{propname}",
-                    "orig": "object_property_{propname}",
-                    "type": "`$OBJECT`"
-                  },
-                  {
-                    "example": null,
-                    "kind": "query",
-                    "name": "object_type",
-                    "orig": "object_type",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": null,
-                    "kind": "query",
-                    "name": "occurred_after",
-                    "orig": "occurred_after",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": null,
-                    "kind": "query",
-                    "name": "occurred_before",
-                    "orig": "occurred_before",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": null,
-                    "kind": "query",
-                    "name": "property",
-                    "orig": "property",
-                    "type": "`$ARRAY`"
-                  },
-                  {
-                    "example": null,
-                    "kind": "query",
-                    "name": "property_{propname}",
-                    "orig": "property_{propname}",
-                    "type": "`$OBJECT`"
-                  },
-                  {
-                    "example": null,
-                    "kind": "query",
-                    "name": "sort",
-                    "orig": "sort",
-                    "type": "`$ARRAY`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/events/event-occurrences/2026-09",
@@ -981,6 +922,111 @@ class Config {
                   "lit": "2026-09"
                 }
               ],
+              "parts": [
+                "events",
+                "event-occurrences",
+                "2026-09"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "after",
+                    "orig": "after",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": null
+                  },
+                  {
+                    "name": "before",
+                    "orig": "before",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": null
+                  },
+                  {
+                    "name": "event_type",
+                    "orig": "event_type",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": null
+                  },
+                  {
+                    "name": "id",
+                    "orig": "id",
+                    "type": "`$ARRAY`",
+                    "kind": "query",
+                    "example": null
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": null
+                  },
+                  {
+                    "name": "object_id",
+                    "orig": "object_id",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": null
+                  },
+                  {
+                    "name": "object_property_{propname}",
+                    "orig": "object_property_{propname}",
+                    "type": "`$OBJECT`",
+                    "kind": "query",
+                    "example": null
+                  },
+                  {
+                    "name": "object_type",
+                    "orig": "object_type",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": null
+                  },
+                  {
+                    "name": "occurred_after",
+                    "orig": "occurred_after",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": null
+                  },
+                  {
+                    "name": "occurred_before",
+                    "orig": "occurred_before",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": null
+                  },
+                  {
+                    "name": "property",
+                    "orig": "property",
+                    "type": "`$ARRAY`",
+                    "kind": "query",
+                    "example": null
+                  },
+                  {
+                    "name": "property_{propname}",
+                    "orig": "property_{propname}",
+                    "type": "`$OBJECT`",
+                    "kind": "query",
+                    "example": null
+                  },
+                  {
+                    "name": "sort",
+                    "orig": "sort",
+                    "type": "`$ARRAY`",
+                    "kind": "query",
+                    "example": null
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "after",
@@ -997,16 +1043,7 @@ class Config {
                   "property_{propname}",
                   "sort"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "parts": [
-                "events",
-                "event-occurrences",
-                "2026-09"
-              ]
+              }
             }
           ]
         }
@@ -1019,9 +1056,10 @@ class Config {
       "fields": [
         {
           "name": "eventTypes",
+          "title": "Event Types",
+          "type": "`$ARRAY`",
           "req": true,
-          "short": "List of event type names.",
-          "type": "`$ARRAY`"
+          "short": "List of event type names."
         }
       ],
       "name": "events_visible_external_event_type_name",
@@ -1031,7 +1069,6 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {},
               "kind": "http",
               "method": "GET",
               "orig": "/events/event-occurrences/2026-09/event-types",
@@ -1049,17 +1086,19 @@ class Config {
                   "lit": "event-types"
                 }
               ],
-              "select": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.eventTypes`"
-              },
               "parts": [
                 "events",
                 "event-occurrences",
                 "2026-09",
                 "event-types"
-              ]
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.eventTypes`"
+              },
+              "args": {},
+              "select": {}
             }
           ]
         }
@@ -1072,119 +1111,134 @@ class Config {
       "fields": [
         {
           "name": "archived",
+          "title": "Archived",
+          "type": "`$BOOLEAN`",
           "req": true,
-          "short": "A boolean indicating whether the event type is archived.",
-          "type": "`$BOOLEAN`"
+          "short": "A boolean indicating whether the event type is archived."
         },
         {
           "name": "associations",
+          "title": "Associations",
+          "type": "`$ARRAY`",
           "req": true,
-          "short": "An array of association definitions related to the event type.",
-          "type": "`$ARRAY`"
+          "short": "An array of association definitions related to the event type."
         },
         {
           "name": "comboEventRules",
-          "req": true,
+          "title": "Combo Event Rules",
           "type": "`$OBJECT`",
-          "union": {
-            "branches": 21,
-            "count": 17,
-            "depth": 20
-          }
+          "req": true
         },
         {
-          "format": "date-time",
           "name": "createdAt",
+          "title": "Created At",
+          "type": "`$STRING`",
           "short": "A string representing the date and time when the event type was created, in ISO 8601 format.",
-          "type": "`$STRING`"
+          "format": "date-time"
         },
         {
-          "format": "int32",
           "name": "createdUserId",
+          "title": "Created User Id",
+          "type": "`$INTEGER`",
           "short": "An integer representing the ID of the user who created the event type.",
-          "type": "`$INTEGER`"
+          "format": "int32"
         },
         {
           "name": "customMatchingId",
-          "req": true,
-          "type": "`$OBJECT`"
+          "title": "Custom Matching Id",
+          "type": "`$OBJECT`",
+          "req": true
         },
         {
           "name": "description",
-          "short": "A string providing a description of the event type.",
-          "type": "`$STRING`"
+          "title": "Description",
+          "type": "`$STRING`",
+          "short": "A string providing a description of the event type."
         },
         {
           "name": "detailTemplate",
-          "short": "The rendering template for the body of the CRM timeline activity card.",
-          "type": "`$STRING`"
+          "title": "Detail Template",
+          "type": "`$STRING`",
+          "short": "The rendering template for the body of the CRM timeline activity card."
         },
         {
           "name": "fullyQualifiedName",
+          "title": "Fully Qualified Name",
+          "type": "`$STRING`",
           "req": true,
-          "short": "A string representing the fully qualified name of the event type.",
-          "type": "`$STRING`"
+          "short": "A string representing the fully qualified name of the event type."
         },
         {
           "name": "headerTemplate",
-          "short": "The rendering template for the header of the CRM timeline activity card.",
-          "type": "`$STRING`"
+          "title": "Header Template",
+          "type": "`$STRING`",
+          "short": "The rendering template for the header of the CRM timeline activity card."
         },
         {
           "name": "id",
+          "title": "Id",
+          "type": "`$STRING`",
           "req": true,
-          "short": "A string representing the unique identifier of the event type.",
-          "type": "`$STRING`"
+          "short": "A string representing the unique identifier of the event type."
         },
         {
           "name": "labels",
-          "req": true,
-          "type": "`$OBJECT`"
+          "title": "Labels",
+          "type": "`$OBJECT`",
+          "req": true
         },
         {
           "name": "name",
+          "title": "Name",
+          "type": "`$STRING`",
           "req": true,
-          "short": "A string representing the name of the event type.",
-          "type": "`$STRING`"
+          "short": "A string representing the name of the event type."
         },
         {
           "name": "objectTypeId",
+          "title": "Object Type Id",
+          "type": "`$STRING`",
           "req": true,
-          "short": "A string representing the object type ID associated with the event type.",
-          "type": "`$STRING`"
+          "short": "A string representing the object type ID associated with the event type."
         },
         {
           "name": "primaryObject",
-          "short": "A string representing the primary object associated with the event type.",
-          "type": "`$STRING`"
+          "title": "Primary Object",
+          "type": "`$STRING`",
+          "short": "A string representing the primary object associated with the event type."
         },
         {
           "name": "primaryObjectId",
-          "short": "A string representing the ID of the primary object associated with the event type.",
-          "type": "`$STRING`"
+          "title": "Primary Object Id",
+          "type": "`$STRING`",
+          "short": "A string representing the ID of the primary object associated with the event type."
         },
         {
           "name": "properties",
+          "title": "Properties",
+          "type": "`$ARRAY`",
           "req": true,
-          "short": "An array of property objects associated with the event type.",
-          "type": "`$ARRAY`"
+          "short": "An array of property objects associated with the event type."
         },
         {
           "name": "trackingType",
-          "short": "A string indicating the tracking type of the event.",
-          "type": "`$STRING`"
+          "title": "Tracking Type",
+          "type": "`$STRING`",
+          "short": "A string indicating the tracking type of the event."
         },
         {
-          "format": "date-time",
           "name": "updatedAt",
+          "title": "Updated At",
+          "type": "`$STRING`",
           "short": "A string representing the date and time when the event type was last updated, in ISO 8601 format.",
-          "type": "`$STRING`"
+          "format": "date-time"
         },
         {
-          "format": "int32",
           "name": "updatedUserId",
+          "title": "Updated User Id",
+          "type": "`$INTEGER`",
           "short": "An integer representing the ID of the user who last updated the event type.",
-          "type": "`$INTEGER`"
+          "format": "int32"
         }
       ],
       "id": {
@@ -1198,45 +1252,6 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {
-                "query": [
-                  {
-                    "example": null,
-                    "kind": "query",
-                    "name": "after",
-                    "orig": "after",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": null,
-                    "kind": "query",
-                    "name": "include_property",
-                    "orig": "include_property",
-                    "type": "`$BOOLEAN`"
-                  },
-                  {
-                    "example": null,
-                    "kind": "query",
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "example": null,
-                    "kind": "query",
-                    "name": "search_string",
-                    "orig": "search_string",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": null,
-                    "kind": "query",
-                    "name": "sort_order",
-                    "orig": "sort_order",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/events/2026-09/event-definitions",
@@ -1251,6 +1266,55 @@ class Config {
                   "lit": "event-definitions"
                 }
               ],
+              "parts": [
+                "events",
+                "2026-09",
+                "event-definitions"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "after",
+                    "orig": "after",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": null
+                  },
+                  {
+                    "name": "include_property",
+                    "orig": "include_property",
+                    "type": "`$BOOLEAN`",
+                    "kind": "query",
+                    "example": null
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": null
+                  },
+                  {
+                    "name": "search_string",
+                    "orig": "search_string",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": null
+                  },
+                  {
+                    "name": "sort_order",
+                    "orig": "sort_order",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": null
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "after",
@@ -1259,16 +1323,7 @@ class Config {
                   "search_string",
                   "sort_order"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "parts": [
-                "events",
-                "2026-09",
-                "event-definitions"
-              ]
+              }
             }
           ]
         }
@@ -1277,87 +1332,78 @@ class Config {
         "ancestors": []
       }
     },
-    "manage_event_definitions_property": {
+    "property": {
       "fields": [
         {
           "name": "description",
-          "short": "A string providing additional information about the property.",
-          "type": "`$STRING`"
+          "title": "Description",
+          "type": "`$STRING`",
+          "short": "A string providing additional information about the property."
         },
         {
-          "format": "int32",
           "name": "displayOrder",
+          "title": "Display Order",
+          "type": "`$INTEGER`",
           "short": "For not hidden properties, indicates the order to display the property on the record's activity timeline (ex: displayOrder: 0 is at the top).",
-          "type": "`$INTEGER`"
+          "format": "int32"
         },
         {
           "name": "hidden",
-          "short": "Controls whether or not this property is displayed on the record's activity timeline.",
-          "type": "`$BOOLEAN`"
+          "title": "Hidden",
+          "type": "`$BOOLEAN`",
+          "short": "Controls whether or not this property is displayed on the record's activity timeline."
         },
         {
           "name": "id",
+          "title": "Id",
           "type": "`$STRING`"
         },
         {
           "name": "label",
+          "title": "Label",
+          "type": "`$STRING`",
+          "req": true,
           "op": {
             "update": {
               "type": "`$STRING`"
             }
           },
-          "req": true,
-          "short": "A string representing the display name of the property.",
-          "type": "`$STRING`"
+          "short": "A string representing the display name of the property."
         },
         {
           "name": "name",
-          "short": "A string representing the unique name of the property.",
-          "type": "`$STRING`"
+          "title": "Name",
+          "type": "`$STRING`",
+          "short": "A string representing the unique name of the property."
         },
         {
           "name": "options",
-          "short": "An array of OptionInput objects that define the possible values for the property.",
-          "type": "`$ARRAY`"
+          "title": "Options",
+          "type": "`$ARRAY`",
+          "short": "An array of OptionInput objects that define the possible values for the property."
         },
         {
           "name": "type",
+          "title": "Type",
+          "type": "`$STRING`",
           "req": true,
-          "short": "A string indicating the data type of the property.",
-          "type": "`$STRING`"
+          "short": "A string indicating the data type of the property."
         }
       ],
       "id": {
         "field": "id",
         "name": "id"
       },
-      "name": "manage_event_definitions_property",
+      "name": "property",
       "op": {
         "create": {
           "input": "data",
           "name": "create",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "example": null,
-                    "kind": "param",
-                    "name": "event_name",
-                    "orig": "event_name",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "POST",
               "orig": "/events/2026-09/event-definitions/{eventName}/property",
-              "rename": {
-                "param": {
-                  "eventName": "event_name"
-                }
-              },
               "segments": [
                 {
                   "lit": "events"
@@ -1375,22 +1421,39 @@ class Config {
                   "lit": "property"
                 }
               ],
-              "select": {
-                "exist": [
-                  "event_name"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "events",
                 "2026-09",
                 "event-definitions",
                 "{event_name}",
                 "property"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "eventName": "event_name"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "event_name",
+                    "orig": "event_name",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": null
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "event_name"
+                ]
+              }
             }
           ]
         },
@@ -1399,35 +1462,9 @@ class Config {
           "name": "update",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "example": null,
-                    "kind": "param",
-                    "name": "event_definition_id",
-                    "orig": "event_name",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": null,
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "property_name",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "PATCH",
               "orig": "/events/2026-09/event-definitions/{eventName}/property/{propertyName}",
-              "rename": {
-                "param": {
-                  "eventName": "event_definition_id",
-                  "propertyName": "id"
-                }
-              },
               "segments": [
                 {
                   "lit": "events"
@@ -1448,16 +1485,6 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "event_definition_id",
-                  "id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "events",
                 "2026-09",
@@ -1465,7 +1492,43 @@ class Config {
                 "{event_definition_id}",
                 "property",
                 "{id}"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "eventName": "event_definition_id",
+                  "propertyName": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "event_definition_id",
+                    "orig": "event_name",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": null
+                  },
+                  {
+                    "name": "id",
+                    "orig": "property_name",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": null
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "event_definition_id",
+                  "id"
+                ]
+              }
             }
           ]
         }
@@ -1473,7 +1536,7 @@ class Config {
       "relations": {
         "ancestors": [
           [
-            "event_definition"
+            "$.main.kit.entity.event_definition"
           ]
         ]
       }

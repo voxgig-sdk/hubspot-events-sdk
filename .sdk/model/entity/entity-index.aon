@@ -1,9 +1,0 @@
-# Entity Models
-
-@"./basic.aon"
-@"./batch.aon"
-@"./event_definition.aon"
-@"./events_collection_response_external_unified_event.aon"
-@"./events_visible_external_event_type_name.aon"
-@"./manage_event_definitions_collection_response_with_total_external.aon"
-@"./manage_event_definitions_property.aon"

@@ -153,7 +153,7 @@ JSON schemas are emitted by the SDK from the `Args` struct's `json` /
 
 The 7 entities valid as the `entity` argument:
 
-basic | batch | event_definition | events_collection_response_external_unified_event | events_visible_external_event_type_name | manage_event_definitions_collection_response_with_total_external | manage_event_definitions_property
+basic | batch | event_definition | events_collection_response_external_unified_event | events_visible_external_event_type_name | manage_event_definitions_collection_response_with_total_external | property
 
 ### Smoke test via HTTP (raw JSON-RPC)
 

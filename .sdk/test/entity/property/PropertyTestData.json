@@ -1,0 +1,67 @@
+{
+  "existing": {
+    "property": {
+      "PROPERTY00": {
+        "description": "s50",
+        "displayOrder": 81,
+        "hidden": true,
+        "id": "PROPERTY00",
+        "label": "s54",
+        "name": "s55",
+        "options": [],
+        "type": "s57",
+        "event_name": "EVENT_NAME01",
+        "event_definition_id": "EVENT_DEFINITION01"
+      },
+      "PROPERTY01": {
+        "description": "sa0",
+        "displayOrder": 161,
+        "hidden": true,
+        "id": "PROPERTY01",
+        "label": "sa4",
+        "name": "sa5",
+        "options": [],
+        "type": "sa7",
+        "event_name": "EVENT_NAME01",
+        "event_definition_id": "EVENT_DEFINITION01"
+      },
+      "PROPERTY02": {
+        "description": "sf0",
+        "displayOrder": 241,
+        "hidden": true,
+        "id": "PROPERTY02",
+        "label": "sf4",
+        "name": "sf5",
+        "options": [],
+        "type": "sf7",
+        "event_name": "EVENT_NAME01",
+        "event_definition_id": "EVENT_DEFINITION01"
+      }
+    }
+  },
+  "new": {
+    "property": {
+      "property_ref01": {
+        "description": "s140",
+        "displayOrder": 321,
+        "hidden": true,
+        "label": "s144",
+        "name": "s145",
+        "options": [],
+        "type": "s147"
+      }
+    }
+  },
+  "requests": {
+    "POST /events/2026-09/event-definitions/{eventName}/property": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "PATCH /events/2026-09/event-definitions/{eventName}/property/{propertyName}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

@@ -4,7 +4,7 @@ import { EventDefinitionEntity } from './entity/EventDefinitionEntity';
 import { EventsCollectionResponseExternalUnifiedEventEntity } from './entity/EventsCollectionResponseExternalUnifiedEventEntity';
 import { EventsVisibleExternalEventTypeNameEntity } from './entity/EventsVisibleExternalEventTypeNameEntity';
 import { ManageEventDefinitionsCollectionResponseWithTotalExternalEntity } from './entity/ManageEventDefinitionsCollectionResponseWithTotalExternalEntity';
-import { ManageEventDefinitionsPropertyEntity } from './entity/ManageEventDefinitionsPropertyEntity';
+import { PropertyEntity } from './entity/PropertyEntity';
 export type * from './HubspotEventsTypes';
 import { inspect } from 'node:util';
 import type { Context, Feature } from './types';
@@ -56,7 +56,7 @@ declare class HubspotEventsSDK {
     EventsCollectionResponseExternalUnifiedEvent(entopts?: Record<string, any>): EventsCollectionResponseExternalUnifiedEventEntity;
     EventsVisibleExternalEventTypeName(entopts?: Record<string, any>): EventsVisibleExternalEventTypeNameEntity;
     ManageEventDefinitionsCollectionResponseWithTotalExternal(entopts?: Record<string, any>): ManageEventDefinitionsCollectionResponseWithTotalExternalEntity;
-    ManageEventDefinitionsProperty(entopts?: Record<string, any>): ManageEventDefinitionsPropertyEntity;
+    Property(entopts?: Record<string, any>): PropertyEntity;
     static test(testoptsarg?: any, sdkoptsarg?: any): HubspotEventsSDK;
     tester(testopts?: any, sdkopts?: any): HubspotEventsSDK;
     toJSON(): {

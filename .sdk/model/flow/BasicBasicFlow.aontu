@@ -1,0 +1,35 @@
+# BasicBasicFlow
+
+main: kit: flow: BasicBasicFlow:
+{
+  entity: "basic",
+  kind: "basic",
+  name: "BasicBasicFlow",
+  step: [
+    {
+      i: {
+        ref: "basic_ref01"
+      }
+
+      m: {
+        event_definition_id: "event_definition01"
+      }
+
+      o: "create"
+    }
+
+    {
+      i: {
+        ref: "basic_ref01",
+        suffix: "_rm0"
+      }
+
+      m: {
+        id: "basic01"
+      }
+
+      o: "remove"
+    }
+  ],
+  "key$": "BasicBasicFlow"
+}

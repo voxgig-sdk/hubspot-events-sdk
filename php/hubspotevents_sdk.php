@@ -449,21 +449,21 @@ class HubspotEventsSDK
     }
 
 
-    private $_manage_event_definitions_property = null;
+    private $_property = null;
 
-    // Canonical facade: $client->ManageEventDefinitionsProperty()->list() / ->load(["id" => ...]).
-    // PHP method names are case-insensitive, so lowercase $client->manage_event_definitions_property()
+    // Canonical facade: $client->Property()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->property()
     // resolves here too.
-    public function ManageEventDefinitionsProperty($data = null)
+    public function Property($data = null)
     {
-        require_once __DIR__ . '/entity/manage_event_definitions_property_entity.php';
+        require_once __DIR__ . '/entity/property_entity.php';
         if ($data === null) {
-            if ($this->_manage_event_definitions_property === null) {
-                $this->_manage_event_definitions_property = new ManageEventDefinitionsPropertyEntity($this, null);
+            if ($this->_property === null) {
+                $this->_property = new PropertyEntity($this, null);
             }
-            return $this->_manage_event_definitions_property;
+            return $this->_property;
         }
-        return new ManageEventDefinitionsPropertyEntity($this, $data);
+        return new PropertyEntity($this, $data);
     }
 
 

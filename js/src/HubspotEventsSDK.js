@@ -6,7 +6,7 @@ const { EventDefinitionEntity } = require('./entity/EventDefinitionEntity')
 const { EventsCollectionResponseExternalUnifiedEventEntity } = require('./entity/EventsCollectionResponseExternalUnifiedEventEntity')
 const { EventsVisibleExternalEventTypeNameEntity } = require('./entity/EventsVisibleExternalEventTypeNameEntity')
 const { ManageEventDefinitionsCollectionResponseWithTotalExternalEntity } = require('./entity/ManageEventDefinitionsCollectionResponseWithTotalExternalEntity')
-const { ManageEventDefinitionsPropertyEntity } = require('./entity/ManageEventDefinitionsPropertyEntity')
+const { PropertyEntity } = require('./entity/PropertyEntity')
 
 
 const { inspect } = require('node:util')
@@ -353,12 +353,12 @@ class HubspotEventsSDK {
   }
 
 
-  // Entity access: `client.ManageEventDefinitionsProperty().list()` / `client.ManageEventDefinitionsProperty().load({ id })`.
+  // Entity access: `client.Property().list()` / `client.Property().load({ id })`.
   // The argument is the entity OPTIONS object (passed to the entity
   // constructor as entopts), not initial entity data.
-  ManageEventDefinitionsProperty(entopts) {
+  Property(entopts) {
     const self = this
-    return new ManageEventDefinitionsPropertyEntity(self, entopts)
+    return new PropertyEntity(self, entopts)
   }
 
 

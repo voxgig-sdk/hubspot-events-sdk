@@ -1,0 +1,55 @@
+# Entity: events_visible_external_event_type_name
+
+main: kit: entity: events_visible_external_event_type_name: {
+
+  alias: field: {}
+
+  fields: {
+    eventTypes: {
+      h: "Event Types"
+      n: "eventTypes"
+      r: true
+      sh: "List of event type names."
+      t: "`$ARRAY`"
+    }
+  }
+
+  name: "events_visible_external_event_type_name"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /events/event-occurrences/2026-09/event-types"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/events/event-occurrences/2026-09/event-types"
+          s: [
+            {
+              lit: "events"
+            }
+            {
+              lit: "event-occurrences"
+            }
+            {
+              lit: "2026-09"
+            }
+            {
+              lit: "event-types"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.eventTypes`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

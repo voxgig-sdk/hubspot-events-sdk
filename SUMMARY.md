@@ -88,7 +88,7 @@ Key fields to recognise:
 - `createdUserId`: An integer representing the ID of the user who created the event type.
 - `description`: A string providing a description of the event type.
 
-### [ManageEventDefinitionsProperty](docs/api/manage_event_definitions_property.html)
+### [Property](docs/api/property.html)
 
 Results: successful operation.
 
@@ -118,8 +118,8 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 | [EventsCollectionResponseExternalUnifiedEvent](docs/api/events_collection_response_external_unified_event.html) | `list` | `GET /events/event-occurrences/2026-09` | Required |
 | [EventsVisibleExternalEventTypeName](docs/api/events_visible_external_event_type_name.html) | `list` | `GET /events/event-occurrences/2026-09/event-types` | Required |
 | [ManageEventDefinitionsCollectionResponseWithTotalExternal](docs/api/manage_event_definitions_collection_response_with_total_external.html) | `list` | `GET /events/2026-09/event-definitions` | Required |
-| [ManageEventDefinitionsProperty](docs/api/manage_event_definitions_property.html) | `create` | `POST /events/2026-09/event-definitions/{eventName}/property` | Required |
-| [ManageEventDefinitionsProperty](docs/api/manage_event_definitions_property.html) | `update` | `PATCH /events/2026-09/event-definitions/{eventName}/property/{propertyName}` | Required |
+| [Property](docs/api/property.html) | `create` | `POST /events/2026-09/event-definitions/{eventName}/property` | Required |
+| [Property](docs/api/property.html) | `update` | `PATCH /events/2026-09/event-definitions/{eventName}/property/{propertyName}` | Required |
 
 ## Connect to the API
 

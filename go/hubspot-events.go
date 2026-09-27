@@ -71,8 +71,8 @@ func init() {
 	core.NewManageEventDefinitionsCollectionResponseWithTotalExternalEntityFunc = func(client *core.HubspotEventsSDK, entopts map[string]any) core.HubspotEventsEntity {
 		return entity.NewManageEventDefinitionsCollectionResponseWithTotalExternalEntity(client, entopts)
 	}
-	core.NewManageEventDefinitionsPropertyEntityFunc = func(client *core.HubspotEventsSDK, entopts map[string]any) core.HubspotEventsEntity {
-		return entity.NewManageEventDefinitionsPropertyEntity(client, entopts)
+	core.NewPropertyEntityFunc = func(client *core.HubspotEventsSDK, entopts map[string]any) core.HubspotEventsEntity {
+		return entity.NewPropertyEntity(client, entopts)
 	}
 }
 

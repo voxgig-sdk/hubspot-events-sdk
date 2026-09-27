@@ -19,7 +19,6 @@ import type {
   EventsCollectionResponseExternalUnifiedEventListMatch,
 } from '../HubspotEventsTypes'
 
-// TODO: needs Entity superclass
 class EventsCollectionResponseExternalUnifiedEventEntity extends HubspotEventsEntityBase<EventsCollectionResponseExternalUnifiedEvent> {
 
   constructor(client: HubspotEventsSDK, entopts: any) {

@@ -343,10 +343,10 @@ class HubspotEventsSDK:
         return ManageEventDefinitionsCollectionResponseWithTotalExternalEntity(self, data)
 
 
-    def ManageEventDefinitionsProperty(self, data=None) -> "ManageEventDefinitionsPropertyEntity":
-        """Entity factory: client.ManageEventDefinitionsProperty().list() / client.ManageEventDefinitionsProperty().load({"id": ...})."""
-        from hubspotevents_sdk.entity.manage_event_definitions_property_entity import ManageEventDefinitionsPropertyEntity
-        return ManageEventDefinitionsPropertyEntity(self, data)
+    def Property(self, data=None) -> "PropertyEntity":
+        """Entity factory: client.Property().list() / client.Property().load({"id": ...})."""
+        from hubspotevents_sdk.entity.property_entity import PropertyEntity
+        return PropertyEntity(self, data)
 
 
 
@@ -382,4 +382,4 @@ if TYPE_CHECKING:
     from hubspotevents_sdk.entity.events_collection_response_external_unified_event_entity import EventsCollectionResponseExternalUnifiedEventEntity
     from hubspotevents_sdk.entity.events_visible_external_event_type_name_entity import EventsVisibleExternalEventTypeNameEntity
     from hubspotevents_sdk.entity.manage_event_definitions_collection_response_with_total_external_entity import ManageEventDefinitionsCollectionResponseWithTotalExternalEntity
-    from hubspotevents_sdk.entity.manage_event_definitions_property_entity import ManageEventDefinitionsPropertyEntity
+    from hubspotevents_sdk.entity.property_entity import PropertyEntity

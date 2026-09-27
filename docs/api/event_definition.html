@@ -14,7 +14,7 @@
 <a href="../api/events_collection_response_external_unified_event.html">EventsCollectionResponseExternalUnifiedEvent</a>
 <a href="../api/events_visible_external_event_type_name.html">EventsVisibleExternalEventTypeName</a>
 <a href="../api/manage_event_definitions_collection_response_with_total_external.html">ManageEventDefinitionsCollectionResponseWithTotalExternal</a>
-<a href="../api/manage_event_definitions_property.html">ManageEventDefinitionsProperty</a></details>
+<a href="../api/property.html">Property</a></details>
 <details><summary>Guides</summary><a href="../guides/authentication.html">Authentication</a>
 <a href="../guides/first-call.html">Make your first API call</a>
 <a href="../guides/errors.html">Handle errors</a>
@@ -27,14 +27,14 @@
 <a href="../sdks/ts.html">TypeScript</a></details>
 <details><summary>Tools</summary><a href="../tools/go-cli.html">Go CLI</a>
 <a href="../tools/go-mcp.html">Go MCP server</a></details>
-<details><summary>Features</summary><a href="../features/debug.html">Request/response capture ring buffer for debugging</a>
-<a href="../features/idempotency.html">Idempotency keys for safe retries of mutating operations</a>
-<a href="../features/metrics.html">Statistics capture: per-operation counters and latency</a>
-<a href="../features/paging.html">Pagination signals for list operations</a>
-<a href="../features/ratelimit.html">Client-side rate limiting via a token bucket</a>
-<a href="../features/retry.html">Automatic retry of transient failures with exponential backoff</a>
-<a href="../features/test.html">In-memory mock transport for testing without a live server</a>
-<a href="../features/timeout.html">Per-request timeout with transport abort</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="eventdefinition">EventDefinition</h1>
+<details><summary>Features</summary><a href="../features/debug.html">Debug capture</a>
+<a href="../features/idempotency.html">Idempotency</a>
+<a href="../features/metrics.html">Metrics</a>
+<a href="../features/paging.html">Paging</a>
+<a href="../features/ratelimit.html">Rate limiting</a>
+<a href="../features/retry.html">Retry</a>
+<a href="../features/test.html">Test transport</a>
+<a href="../features/timeout.html">Timeout</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="eventdefinition">EventDefinition</h1>
 <h2 id="operations">Operations</h2>
 <p>Every route this entity exposes. Each route links to its own reference on this page.</p>
 <table>
@@ -67,6 +67,56 @@
 </tr>
 </tbody>
 </table>
+<h2 id="examples">Examples</h2>
+<p>One example per SDK, generated from the API model. The argument names are the parameters and fields of this entity, and the values are placeholders. The examples are not compiled or executed.</p>
+<h3 id="golang">Golang</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/go.html#set-up-the-client">Golang setup</a>, then call the operations:</p>
+<pre><code class="language-go">event_definition, err := client.EventDefinition(nil).Load(map[string]any{&quot;id&quot;: &quot;example_id&quot;}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(event_definition)
+created, err := client.EventDefinition(nil).Create(map[string]any{&quot;archived&quot;: true, &quot;associations&quot;: []any{}, &quot;comboEventRules&quot;: map[string]any{}, &quot;customMatchingId&quot;: map[string]any{}, &quot;fullyQualifiedName&quot;: &quot;example&quot;, &quot;id&quot;: &quot;example&quot;, &quot;includeDefaultProperties&quot;: true, &quot;label&quot;: &quot;example&quot;, &quot;labels&quot;: map[string]any{}, &quot;name&quot;: &quot;example&quot;, &quot;objectTypeId&quot;: &quot;example&quot;, &quot;properties&quot;: []any{}, &quot;propertyDefinitions&quot;: []any{}, &quot;propertyOrder&quot;: []any{}}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(created)
+updated, err := client.EventDefinition(nil).Update(map[string]any{&quot;id&quot;: &quot;example_id&quot;, &quot;archived&quot;: true, &quot;associations&quot;: []any{}}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(updated)
+</code></pre>
+<h3 id="javascript">JavaScript</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/js.html#set-up-the-client">JavaScript setup</a>, then call the operations:</p>
+<pre><code class="language-js">const event_definition = await client.EventDefinition().load({ id: &quot;example_id&quot; })
+const created = await client.EventDefinition().create({ archived: true, associations: [], comboEventRules: {}, customMatchingId: {}, fullyQualifiedName: &quot;example&quot;, id: &quot;example&quot;, includeDefaultProperties: true, label: &quot;example&quot;, labels: {}, name: &quot;example&quot;, objectTypeId: &quot;example&quot;, properties: [], propertyDefinitions: [], propertyOrder: [] })
+const updated = await client.EventDefinition().update({ id: &quot;example_id&quot;, archived: true, associations: [] })
+</code></pre>
+<h3 id="lua">Lua</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/lua.html#set-up-the-client">Lua setup</a>, then call the operations:</p>
+<pre><code class="language-lua">local event_definition, err = client:EventDefinition():load({ id = &quot;example_id&quot; })
+local created, err = client:EventDefinition():create({ archived = true, associations = {}, comboEventRules = {}, customMatchingId = {}, fullyQualifiedName = &quot;example&quot;, id = &quot;example&quot;, includeDefaultProperties = true, label = &quot;example&quot;, labels = {}, name = &quot;example&quot;, objectTypeId = &quot;example&quot;, properties = {}, propertyDefinitions = {}, propertyOrder = {} })
+local updated, err = client:EventDefinition():update({ id = &quot;example_id&quot;, archived = true, associations = {} })
+</code></pre>
+<h3 id="php">PHP</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/php.html#set-up-the-client">PHP setup</a>, then call the operations:</p>
+<pre><code class="language-php">$event_definition = $client-&gt;EventDefinition()-&gt;load([&quot;id&quot; =&gt; &quot;example_id&quot;]);
+$created = $client-&gt;EventDefinition()-&gt;create([&quot;archived&quot; =&gt; true, &quot;associations&quot; =&gt; [], &quot;comboEventRules&quot; =&gt; [], &quot;customMatchingId&quot; =&gt; [], &quot;fullyQualifiedName&quot; =&gt; &quot;example&quot;, &quot;id&quot; =&gt; &quot;example&quot;, &quot;includeDefaultProperties&quot; =&gt; true, &quot;label&quot; =&gt; &quot;example&quot;, &quot;labels&quot; =&gt; [], &quot;name&quot; =&gt; &quot;example&quot;, &quot;objectTypeId&quot; =&gt; &quot;example&quot;, &quot;properties&quot; =&gt; [], &quot;propertyDefinitions&quot; =&gt; [], &quot;propertyOrder&quot; =&gt; []]);
+$updated = $client-&gt;EventDefinition()-&gt;update([&quot;id&quot; =&gt; &quot;example_id&quot;, &quot;archived&quot; =&gt; true, &quot;associations&quot; =&gt; []]);
+</code></pre>
+<h3 id="python">Python</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/py.html#set-up-the-client">Python setup</a>, then call the operations:</p>
+<pre><code class="language-py">event_definition = client.EventDefinition().load({&quot;id&quot;: &quot;example_id&quot;})
+created = client.EventDefinition().create({ &quot;archived&quot;: True, &quot;associations&quot;: [], &quot;comboEventRules&quot;: {}, &quot;customMatchingId&quot;: {}, &quot;fullyQualifiedName&quot;: &quot;example&quot;, &quot;id&quot;: &quot;example&quot;, &quot;includeDefaultProperties&quot;: True, &quot;label&quot;: &quot;example&quot;, &quot;labels&quot;: {}, &quot;name&quot;: &quot;example&quot;, &quot;objectTypeId&quot;: &quot;example&quot;, &quot;properties&quot;: [], &quot;propertyDefinitions&quot;: [], &quot;propertyOrder&quot;: [] })
+updated = client.EventDefinition().update({&quot;id&quot;: &quot;example_id&quot;, &quot;archived&quot;: True, &quot;associations&quot;: []})
+</code></pre>
+<h3 id="typescript">TypeScript</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/ts.html#set-up-the-client">TypeScript setup</a>, then call the operations:</p>
+<pre><code class="language-ts">const event_definition = await client.EventDefinition().load({ id: &quot;example_id&quot; })
+const created = await client.EventDefinition().create({ archived: true, associations: [], comboEventRules: {}, customMatchingId: {}, fullyQualifiedName: &quot;example&quot;, id: &quot;example&quot;, includeDefaultProperties: true, label: &quot;example&quot;, labels: {}, name: &quot;example&quot;, objectTypeId: &quot;example&quot;, properties: [], propertyDefinitions: [], propertyOrder: [] })
+const updated = await client.EventDefinition().update({ id: &quot;example_id&quot;, archived: true, associations: [] })
+</code></pre>
 <h2 id="fields">Fields</h2>
 <table>
 <thead>
@@ -94,7 +144,7 @@
 <td><code>comboEventRules</code></td>
 <td><code>object</code></td>
 <td>Yes</td>
-<td></td>
+<td>Combo Event Rules</td>
 </tr>
 <tr>
 <td><code>createdAt</code></td>
@@ -112,7 +162,7 @@
 <td><code>customMatchingId</code></td>
 <td><code>object</code></td>
 <td>Yes</td>
-<td></td>
+<td>Custom Matching Id</td>
 </tr>
 <tr>
 <td><code>description</code></td>
@@ -160,7 +210,7 @@
 <td><code>labels</code></td>
 <td><code>object</code></td>
 <td>Yes</td>
-<td></td>
+<td>Labels</td>
 </tr>
 <tr>
 <td><code>name</code></td>
@@ -397,13 +447,13 @@
 <td><code>associations[].cardinality</code></td>
 <td><code>enum: ONE_TO_MANY, ONE_TO_ONE</code></td>
 <td>Yes</td>
-<td>The nature of the association in terms of cardinality, which can be 'ONE_TO_ONE' or 'ONE_TO_MANY'.</td>
+<td>The nature of the association in terms of cardinality, which can be '<code>ONE_TO_ONE</code>' or '<code>ONE_TO_MANY</code>'.</td>
 </tr>
 <tr>
 <td><code>associations[].category</code></td>
 <td><code>enum: HUBSPOT_DEFINED, INTEGRATOR_DEFINED, USER_DEFINED, WORK</code></td>
 <td>Yes</td>
-<td>The category of the association, indicating whether it is defined by HubSpot, the user, an integrator, or for work purposes. Valid values include 'HUBSPOT_DEFINED', 'USER_DEFINED', 'INTEGRATOR_DEFINED', and 'WORK'.</td>
+<td>The category of the association, indicating whether it is defined by HubSpot, the user, an integrator, or for work purposes. Valid values include '<code>HUBSPOT_DEFINED</code>', '<code>USER_DEFINED</code>', '<code>INTEGRATOR_DEFINED</code>', and 'WORK'.</td>
 </tr>
 <tr>
 <td><code>associations[].fromObjectType</code></td>
@@ -451,7 +501,7 @@
 <td><code>associations[].hiddenReason</code></td>
 <td><code>enum: DEFAULT, INTERNAL, USER_CONFIGURED</code></td>
 <td>No</td>
-<td>The reason why the association is hidden, if applicable. Valid values include 'DEFAULT', 'INTERNAL', and 'USER_CONFIGURED'.</td>
+<td>The reason why the association is hidden, if applicable. Valid values include 'DEFAULT', 'INTERNAL', and '<code>USER_CONFIGURED</code>'.</td>
 </tr>
 <tr>
 <td><code>associations[].id</code></td>
@@ -469,7 +519,7 @@
 <td><code>associations[].inverseCardinality</code></td>
 <td><code>enum: ONE_TO_MANY, ONE_TO_ONE</code></td>
 <td>Yes</td>
-<td>The cardinality of the inverse association, which can also be 'ONE_TO_ONE' or 'ONE_TO_MANY'.</td>
+<td>The cardinality of the inverse association, which can also be '<code>ONE_TO_ONE</code>' or '<code>ONE_TO_MANY</code>'.</td>
 </tr>
 <tr>
 <td><code>associations[].inverseHasAllAssociatedObjects</code></td>
@@ -811,13 +861,13 @@
 <td><code>properties[].dataSensitivity</code></td>
 <td><code>enum: highly_sensitive, non_sensitive, sensitive</code></td>
 <td>No</td>
-<td>The sensitivity level of the data, with valid values including 'non_sensitive', 'sensitive', and 'highly_sensitive'.</td>
+<td>The sensitivity level of the data, with valid values including '<code>non_sensitive</code>', 'sensitive', and '<code>highly_sensitive</code>'.</td>
 </tr>
 <tr>
 <td><code>properties[].dateDisplayHint</code></td>
 <td><code>enum: absolute, absolute_with_relative, time_since, time_until</code></td>
 <td>No</td>
-<td>A hint for displaying date properties, with valid values including 'absolute', 'absolute_with_relative', 'time_since', and 'time_until'.</td>
+<td>A hint for displaying date properties, with valid values including 'absolute', '<code>absolute_with_relative</code>', '<code>time_since</code>', and '<code>time_until</code>'.</td>
 </tr>
 <tr>
 <td><code>properties[].description</code></td>
@@ -979,7 +1029,7 @@
 <td><code>properties[].textDisplayHint</code></td>
 <td><code>enum: domain_name, email, ip_address, multi_line, phone_number, physical_address, ...</code></td>
 <td>No</td>
-<td>A hint for displaying text properties, with valid values including 'unformatted_single_line', 'multi_line', 'email', 'phone_number', 'domain_name', 'ip_address', 'physical_address', and 'postal_code'.</td>
+<td>A hint for displaying text properties, with valid values including '<code>unformatted_single_line</code>', '<code>multi_line</code>', 'email', '<code>phone_number</code>', '<code>domain_name</code>', '<code>ip_address</code>', '<code>physical_address</code>', and '<code>postal_code</code>'.</td>
 </tr>
 <tr>
 <td><code>properties[].type</code></td>
@@ -1003,7 +1053,7 @@
 <td><code>trackingType</code></td>
 <td><code>enum: APP_EVENT, AUTOCAPTURE_EVENT, CLICKED_ELEMENT, COMBO_EVENT, CUSTOM_SCRIPT, CUSTOM_SIGNAL, ...</code></td>
 <td>No</td>
-<td>A string indicating the tracking type of the event. Valid values include 'VISITED_URL', 'CLICKED_ELEMENT', 'CUSTOM_SCRIPT', 'MANUAL', 'IMPORT', 'PROPERTY_CHANGE', 'COMBO_EVENT'.</td>
+<td>A string indicating the tracking type of the event. Valid values include '<code>VISITED_URL</code>', '<code>CLICKED_ELEMENT</code>', '<code>CUSTOM_SCRIPT</code>', 'MANUAL', 'IMPORT', '<code>PROPERTY_CHANGE</code>', '<code>COMBO_EVENT</code>'.</td>
 </tr>
 <tr>
 <td><code>updatedAt</code></td>
@@ -1148,13 +1198,13 @@
 <td><code>associations[].cardinality</code></td>
 <td><code>enum: ONE_TO_MANY, ONE_TO_ONE</code></td>
 <td>Yes</td>
-<td>The nature of the association in terms of cardinality, which can be 'ONE_TO_ONE' or 'ONE_TO_MANY'.</td>
+<td>The nature of the association in terms of cardinality, which can be '<code>ONE_TO_ONE</code>' or '<code>ONE_TO_MANY</code>'.</td>
 </tr>
 <tr>
 <td><code>associations[].category</code></td>
 <td><code>enum: HUBSPOT_DEFINED, INTEGRATOR_DEFINED, USER_DEFINED, WORK</code></td>
 <td>Yes</td>
-<td>The category of the association, indicating whether it is defined by HubSpot, the user, an integrator, or for work purposes. Valid values include 'HUBSPOT_DEFINED', 'USER_DEFINED', 'INTEGRATOR_DEFINED', and 'WORK'.</td>
+<td>The category of the association, indicating whether it is defined by HubSpot, the user, an integrator, or for work purposes. Valid values include '<code>HUBSPOT_DEFINED</code>', '<code>USER_DEFINED</code>', '<code>INTEGRATOR_DEFINED</code>', and 'WORK'.</td>
 </tr>
 <tr>
 <td><code>associations[].fromObjectType</code></td>
@@ -1202,7 +1252,7 @@
 <td><code>associations[].hiddenReason</code></td>
 <td><code>enum: DEFAULT, INTERNAL, USER_CONFIGURED</code></td>
 <td>No</td>
-<td>The reason why the association is hidden, if applicable. Valid values include 'DEFAULT', 'INTERNAL', and 'USER_CONFIGURED'.</td>
+<td>The reason why the association is hidden, if applicable. Valid values include 'DEFAULT', 'INTERNAL', and '<code>USER_CONFIGURED</code>'.</td>
 </tr>
 <tr>
 <td><code>associations[].id</code></td>
@@ -1220,7 +1270,7 @@
 <td><code>associations[].inverseCardinality</code></td>
 <td><code>enum: ONE_TO_MANY, ONE_TO_ONE</code></td>
 <td>Yes</td>
-<td>The cardinality of the inverse association, which can also be 'ONE_TO_ONE' or 'ONE_TO_MANY'.</td>
+<td>The cardinality of the inverse association, which can also be '<code>ONE_TO_ONE</code>' or '<code>ONE_TO_MANY</code>'.</td>
 </tr>
 <tr>
 <td><code>associations[].inverseHasAllAssociatedObjects</code></td>
@@ -1562,13 +1612,13 @@
 <td><code>properties[].dataSensitivity</code></td>
 <td><code>enum: highly_sensitive, non_sensitive, sensitive</code></td>
 <td>No</td>
-<td>The sensitivity level of the data, with valid values including 'non_sensitive', 'sensitive', and 'highly_sensitive'.</td>
+<td>The sensitivity level of the data, with valid values including '<code>non_sensitive</code>', 'sensitive', and '<code>highly_sensitive</code>'.</td>
 </tr>
 <tr>
 <td><code>properties[].dateDisplayHint</code></td>
 <td><code>enum: absolute, absolute_with_relative, time_since, time_until</code></td>
 <td>No</td>
-<td>A hint for displaying date properties, with valid values including 'absolute', 'absolute_with_relative', 'time_since', and 'time_until'.</td>
+<td>A hint for displaying date properties, with valid values including 'absolute', '<code>absolute_with_relative</code>', '<code>time_since</code>', and '<code>time_until</code>'.</td>
 </tr>
 <tr>
 <td><code>properties[].description</code></td>
@@ -1730,7 +1780,7 @@
 <td><code>properties[].textDisplayHint</code></td>
 <td><code>enum: domain_name, email, ip_address, multi_line, phone_number, physical_address, ...</code></td>
 <td>No</td>
-<td>A hint for displaying text properties, with valid values including 'unformatted_single_line', 'multi_line', 'email', 'phone_number', 'domain_name', 'ip_address', 'physical_address', and 'postal_code'.</td>
+<td>A hint for displaying text properties, with valid values including '<code>unformatted_single_line</code>', '<code>multi_line</code>', 'email', '<code>phone_number</code>', '<code>domain_name</code>', '<code>ip_address</code>', '<code>physical_address</code>', and '<code>postal_code</code>'.</td>
 </tr>
 <tr>
 <td><code>properties[].type</code></td>
@@ -1754,7 +1804,7 @@
 <td><code>trackingType</code></td>
 <td><code>enum: APP_EVENT, AUTOCAPTURE_EVENT, CLICKED_ELEMENT, COMBO_EVENT, CUSTOM_SCRIPT, CUSTOM_SIGNAL, ...</code></td>
 <td>No</td>
-<td>A string indicating the tracking type of the event. Valid values include 'VISITED_URL', 'CLICKED_ELEMENT', 'CUSTOM_SCRIPT', 'MANUAL', 'IMPORT', 'PROPERTY_CHANGE', 'COMBO_EVENT'.</td>
+<td>A string indicating the tracking type of the event. Valid values include '<code>VISITED_URL</code>', '<code>CLICKED_ELEMENT</code>', '<code>CUSTOM_SCRIPT</code>', 'MANUAL', 'IMPORT', '<code>PROPERTY_CHANGE</code>', '<code>COMBO_EVENT</code>'.</td>
 </tr>
 <tr>
 <td><code>updatedAt</code></td>
@@ -2009,13 +2059,13 @@
 <td><code>associations[].cardinality</code></td>
 <td><code>enum: ONE_TO_MANY, ONE_TO_ONE</code></td>
 <td>Yes</td>
-<td>The nature of the association in terms of cardinality, which can be 'ONE_TO_ONE' or 'ONE_TO_MANY'.</td>
+<td>The nature of the association in terms of cardinality, which can be '<code>ONE_TO_ONE</code>' or '<code>ONE_TO_MANY</code>'.</td>
 </tr>
 <tr>
 <td><code>associations[].category</code></td>
 <td><code>enum: HUBSPOT_DEFINED, INTEGRATOR_DEFINED, USER_DEFINED, WORK</code></td>
 <td>Yes</td>
-<td>The category of the association, indicating whether it is defined by HubSpot, the user, an integrator, or for work purposes. Valid values include 'HUBSPOT_DEFINED', 'USER_DEFINED', 'INTEGRATOR_DEFINED', and 'WORK'.</td>
+<td>The category of the association, indicating whether it is defined by HubSpot, the user, an integrator, or for work purposes. Valid values include '<code>HUBSPOT_DEFINED</code>', '<code>USER_DEFINED</code>', '<code>INTEGRATOR_DEFINED</code>', and 'WORK'.</td>
 </tr>
 <tr>
 <td><code>associations[].fromObjectType</code></td>
@@ -2063,7 +2113,7 @@
 <td><code>associations[].hiddenReason</code></td>
 <td><code>enum: DEFAULT, INTERNAL, USER_CONFIGURED</code></td>
 <td>No</td>
-<td>The reason why the association is hidden, if applicable. Valid values include 'DEFAULT', 'INTERNAL', and 'USER_CONFIGURED'.</td>
+<td>The reason why the association is hidden, if applicable. Valid values include 'DEFAULT', 'INTERNAL', and '<code>USER_CONFIGURED</code>'.</td>
 </tr>
 <tr>
 <td><code>associations[].id</code></td>
@@ -2081,7 +2131,7 @@
 <td><code>associations[].inverseCardinality</code></td>
 <td><code>enum: ONE_TO_MANY, ONE_TO_ONE</code></td>
 <td>Yes</td>
-<td>The cardinality of the inverse association, which can also be 'ONE_TO_ONE' or 'ONE_TO_MANY'.</td>
+<td>The cardinality of the inverse association, which can also be '<code>ONE_TO_ONE</code>' or '<code>ONE_TO_MANY</code>'.</td>
 </tr>
 <tr>
 <td><code>associations[].inverseHasAllAssociatedObjects</code></td>
@@ -2423,13 +2473,13 @@
 <td><code>properties[].dataSensitivity</code></td>
 <td><code>enum: highly_sensitive, non_sensitive, sensitive</code></td>
 <td>No</td>
-<td>The sensitivity level of the data, with valid values including 'non_sensitive', 'sensitive', and 'highly_sensitive'.</td>
+<td>The sensitivity level of the data, with valid values including '<code>non_sensitive</code>', 'sensitive', and '<code>highly_sensitive</code>'.</td>
 </tr>
 <tr>
 <td><code>properties[].dateDisplayHint</code></td>
 <td><code>enum: absolute, absolute_with_relative, time_since, time_until</code></td>
 <td>No</td>
-<td>A hint for displaying date properties, with valid values including 'absolute', 'absolute_with_relative', 'time_since', and 'time_until'.</td>
+<td>A hint for displaying date properties, with valid values including 'absolute', '<code>absolute_with_relative</code>', '<code>time_since</code>', and '<code>time_until</code>'.</td>
 </tr>
 <tr>
 <td><code>properties[].description</code></td>
@@ -2591,7 +2641,7 @@
 <td><code>properties[].textDisplayHint</code></td>
 <td><code>enum: domain_name, email, ip_address, multi_line, phone_number, physical_address, ...</code></td>
 <td>No</td>
-<td>A hint for displaying text properties, with valid values including 'unformatted_single_line', 'multi_line', 'email', 'phone_number', 'domain_name', 'ip_address', 'physical_address', and 'postal_code'.</td>
+<td>A hint for displaying text properties, with valid values including '<code>unformatted_single_line</code>', '<code>multi_line</code>', 'email', '<code>phone_number</code>', '<code>domain_name</code>', '<code>ip_address</code>', '<code>physical_address</code>', and '<code>postal_code</code>'.</td>
 </tr>
 <tr>
 <td><code>properties[].type</code></td>
@@ -2615,7 +2665,7 @@
 <td><code>trackingType</code></td>
 <td><code>enum: APP_EVENT, AUTOCAPTURE_EVENT, CLICKED_ELEMENT, COMBO_EVENT, CUSTOM_SCRIPT, CUSTOM_SIGNAL, ...</code></td>
 <td>No</td>
-<td>A string indicating the tracking type of the event. Valid values include 'VISITED_URL', 'CLICKED_ELEMENT', 'CUSTOM_SCRIPT', 'MANUAL', 'IMPORT', 'PROPERTY_CHANGE', 'COMBO_EVENT'.</td>
+<td>A string indicating the tracking type of the event. Valid values include '<code>VISITED_URL</code>', '<code>CLICKED_ELEMENT</code>', '<code>CUSTOM_SCRIPT</code>', 'MANUAL', 'IMPORT', '<code>PROPERTY_CHANGE</code>', '<code>COMBO_EVENT</code>'.</td>
 </tr>
 <tr>
 <td><code>updatedAt</code></td>

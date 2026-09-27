@@ -1,0 +1,218 @@
+# Entity: basic
+
+main: kit: entity: basic: {
+
+  alias: field: {}
+
+  fields: {
+    email: {
+      h: "Email"
+      n: "email"
+      r: false
+      sh: "The visitor's email address."
+      t: "`$STRING`"
+    }
+    eventName: {
+      h: "Event Name"
+      n: "eventName"
+      r: true
+      sh: "The event's fully qualified name."
+      t: "`$STRING`"
+    }
+    objectId: {
+      h: "Object Id"
+      n: "objectId"
+      r: false
+      sh: "The ID of the record for which the event occurred (e.g., contact ID or visitor ID)."
+      t: "`$STRING`"
+    }
+    occurredAt: {
+      fo: "date-time"
+      h: "Occurred At"
+      n: "occurredAt"
+      r: false
+      sh: "The time when this event occurred."
+      t: "`$STRING`"
+    }
+    properties: {
+      h: "Properties"
+      n: "properties"
+      r: true
+      sh: "The event properties to update."
+      t: "`$OBJECT`"
+    }
+    utk: {
+      h: "Utk"
+      n: "utk"
+      r: false
+      sh: "The visitor's usertoken."
+      t: "`$STRING`"
+    }
+    uuid: {
+      h: "Uuid"
+      n: "uuid"
+      r: false
+      sh: "A unique identifier for the event occurrence."
+      t: "`$STRING`"
+    }
+  }
+
+  name: "basic"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /events/2026-09/send"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/events/2026-09/send"
+          s: [
+            {
+              lit: "events"
+            }
+            {
+              lit: "2026-09"
+            }
+            {
+              lit: "send"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          co: {
+            id: "DELETE /events/2026-09/event-definitions/{eventName}/property/{propertyName}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: null
+                k: "param"
+                n: "event_definition_id"
+                or: "event_name"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: null
+                k: "param"
+                n: "property_name"
+                or: "property_name"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "DELETE"
+          o: "/events/2026-09/event-definitions/{eventName}/property/{propertyName}"
+          q: {
+            exist: [
+              "event_definition_id"
+              "property_name"
+            ]
+          }
+          r: {
+            param: {
+              eventName: "event_definition_id"
+              propertyName: "property_name"
+            }
+          }
+          s: [
+            {
+              lit: "events"
+            }
+            {
+              lit: "2026-09"
+            }
+            {
+              lit: "event-definitions"
+            }
+            {
+              var: "event_definition_id"
+            }
+            {
+              lit: "property"
+            }
+            {
+              var: "property_name"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "DELETE /events/2026-09/event-definitions/{eventName}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: null
+                k: "param"
+                n: "event_name"
+                or: "event_name"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "DELETE"
+          o: "/events/2026-09/event-definitions/{eventName}"
+          q: {
+            exist: [
+              "event_name"
+            ]
+          }
+          r: {
+            param: {
+              eventName: "event_name"
+            }
+          }
+          s: [
+            {
+              lit: "events"
+            }
+            {
+              lit: "2026-09"
+            }
+            {
+              lit: "event-definitions"
+            }
+            {
+              var: "event_name"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.event_definition")]
+    [path("$.main.kit.entity.event_definition") path("$.main.kit.entity.property")]
+  ]
+
+}

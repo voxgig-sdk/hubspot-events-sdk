@@ -46,7 +46,7 @@ class ReadmeExamplesTest extends TestCase
         "EventsCollectionResponseExternalUnifiedEvent" => "events_collection_response_external_unified_event",
         "EventsVisibleExternalEventTypeName" => "events_visible_external_event_type_name",
         "ManageEventDefinitionsCollectionResponseWithTotalExternal" => "manage_event_definitions_collection_response_with_total_external",
-        "ManageEventDefinitionsProperty" => "manage_event_definitions_property",
+        "Property" => "property",
     ];
 
     // Documented SDK method names — used only to recognise the NARROW

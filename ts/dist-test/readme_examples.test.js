@@ -70,7 +70,7 @@ const __1 = require("..");
 const SDK_NAME = 'HubspotEventsSDK';
 // A fixture for every entity, so list()/load() resolve offline with no
 // network. Snippet client construction is rewritten to seed this.
-const TEST_SEED = { "entity": { "basic": { "test01": { "id": "test01" } }, "batch": { "test01": { "id": "test01" } }, "event_definition": { "test01": { "id": "test01" } }, "events_collection_response_external_unified_event": { "test01": { "id": "test01" } }, "events_visible_external_event_type_name": { "test01": { "id": "test01" } }, "manage_event_definitions_collection_response_with_total_external": { "test01": { "id": "test01" } }, "manage_event_definitions_property": { "test01": { "id": "test01" } } } };
+const TEST_SEED = { "entity": { "basic": { "test01": { "id": "test01" } }, "batch": { "test01": { "id": "test01" } }, "event_definition": { "test01": { "id": "test01" } }, "events_collection_response_external_unified_event": { "test01": { "id": "test01" } }, "events_visible_external_event_type_name": { "test01": { "id": "test01" } }, "manage_event_definitions_collection_response_with_total_external": { "test01": { "id": "test01" } }, "property": { "test01": { "id": "test01" } } } };
 const SEED_ARG = JSON.stringify(TEST_SEED);
 const SEEDED_CTOR = SDK_NAME + '.test(' + SEED_ARG + ')';
 // The three docs this gate covers, resolved relative to dist-test/.

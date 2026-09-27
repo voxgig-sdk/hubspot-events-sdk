@@ -20,7 +20,7 @@ local SDK_MODULE = "hubspot-events_sdk"
 -- A test-mode client seeded with a fixture for every entity. The constructor
 -- of each runnable snippet is rewritten to this form so the offline mock has
 -- data to return.
-local TEST_SEED = '{ entity = { ["basic"] = { ["test01"] = { id = "test01" } }, ["batch"] = { ["test01"] = { id = "test01" } }, ["event_definition"] = { ["test01"] = { id = "test01" } }, ["events_collection_response_external_unified_event"] = { ["test01"] = { id = "test01" } }, ["events_visible_external_event_type_name"] = { ["test01"] = { id = "test01" } }, ["manage_event_definitions_collection_response_with_total_external"] = { ["test01"] = { id = "test01" } }, ["manage_event_definitions_property"] = { ["test01"] = { id = "test01" } } } }'
+local TEST_SEED = '{ entity = { ["basic"] = { ["test01"] = { id = "test01" } }, ["batch"] = { ["test01"] = { id = "test01" } }, ["event_definition"] = { ["test01"] = { id = "test01" } }, ["events_collection_response_external_unified_event"] = { ["test01"] = { id = "test01" } }, ["events_visible_external_event_type_name"] = { ["test01"] = { id = "test01" } }, ["manage_event_definitions_collection_response_with_total_external"] = { ["test01"] = { id = "test01" } }, ["property"] = { ["test01"] = { id = "test01" } } } }'
 local TEST_CTOR = "sdk.test(" .. TEST_SEED .. ")"
 
 local function script_dir()

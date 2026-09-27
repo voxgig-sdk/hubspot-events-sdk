@@ -1,7 +1,7 @@
 # Typed models for the HubspotEvents SDK.
 #
-# GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-# params (op.<name>.points[].args.params[]). Field/param types come from the
+# GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+# params (op.<name>.points[].g.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
 #
@@ -213,12 +213,12 @@ class ManageEventDefinitionsCollectionResponseWithTotalExternalListMatch(TypedDi
     sort_order: str
 
 
-class ManageEventDefinitionsPropertyRequired(TypedDict):
+class PropertyRequired(TypedDict):
     label: str
     type: str
 
 
-class ManageEventDefinitionsProperty(ManageEventDefinitionsPropertyRequired, total=False):
+class Property(PropertyRequired, total=False):
     description: str
     displayOrder: int
     hidden: bool
@@ -227,13 +227,13 @@ class ManageEventDefinitionsProperty(ManageEventDefinitionsPropertyRequired, tot
     options: list
 
 
-class ManageEventDefinitionsPropertyCreateDataRequired(TypedDict):
+class PropertyCreateDataRequired(TypedDict):
     event_name: str
     label: str
     type: str
 
 
-class ManageEventDefinitionsPropertyCreateData(ManageEventDefinitionsPropertyCreateDataRequired, total=False):
+class PropertyCreateData(PropertyCreateDataRequired, total=False):
     description: str
     displayOrder: int
     hidden: bool
@@ -242,12 +242,12 @@ class ManageEventDefinitionsPropertyCreateData(ManageEventDefinitionsPropertyCre
     options: list
 
 
-class ManageEventDefinitionsPropertyUpdateDataRequired(TypedDict):
+class PropertyUpdateDataRequired(TypedDict):
     event_definition_id: str
     id: str
 
 
-class ManageEventDefinitionsPropertyUpdateData(ManageEventDefinitionsPropertyUpdateDataRequired, total=False):
+class PropertyUpdateData(PropertyUpdateDataRequired, total=False):
     description: str
     displayOrder: int
     hidden: bool

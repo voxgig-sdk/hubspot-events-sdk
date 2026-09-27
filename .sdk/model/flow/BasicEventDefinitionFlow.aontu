@@ -1,0 +1,59 @@
+# BasicEventDefinitionFlow
+
+main: kit: flow: BasicEventDefinitionFlow:
+{
+  entity: "event_definition",
+  kind: "basic",
+  name: "BasicEventDefinitionFlow",
+  step: [
+    {
+      i: {
+        ref: "event_definition_ref01"
+      }
+
+      o: "create"
+    }
+
+    {
+      i: {
+        ref: "event_definition_ref01",
+        srcdatavar: "event_definition_ref01_data",
+        suffix: "_up0",
+        textfield: "createdAt"
+      }
+
+      o: "update",
+      s: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-event_definition_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "event_definition_ref01",
+        srcdatavar: "event_definition_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        id: "event_definition01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-event_definition_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicEventDefinitionFlow"
+}

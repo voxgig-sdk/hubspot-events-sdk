@@ -32,5 +32,5 @@ var NewEventsVisibleExternalEventTypeNameEntityFunc func(client *HubspotEventsSD
 
 var NewManageEventDefinitionsCollectionResponseWithTotalExternalEntityFunc func(client *HubspotEventsSDK, entopts map[string]any) HubspotEventsEntity
 
-var NewManageEventDefinitionsPropertyEntityFunc func(client *HubspotEventsSDK, entopts map[string]any) HubspotEventsEntity
+var NewPropertyEntityFunc func(client *HubspotEventsSDK, entopts map[string]any) HubspotEventsEntity
 

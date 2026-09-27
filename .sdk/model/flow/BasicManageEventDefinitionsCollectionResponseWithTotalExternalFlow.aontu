@@ -1,0 +1,22 @@
+# BasicManageEventDefinitionsCollectionResponseWithTotalExternalFlow
+
+main: kit: flow: BasicManageEventDefinitionsCollectionResponseWithTotalExternalFlow:
+{
+  entity: "manage_event_definitions_collection_response_with_total_external",
+  kind: "basic",
+  name: "BasicManageEventDefinitionsCollectionResponseWithTotalExternalFlow",
+  step: [
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "manage_event_definitions_collection_response_with_total_external_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicManageEventDefinitionsCollectionResponseWithTotalExternalFlow"
+}

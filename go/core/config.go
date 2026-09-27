@@ -164,7 +164,7 @@ func MakeConfig() map[string]any {
 				"events_collection_response_external_unified_event": map[string]any{},
 				"events_visible_external_event_type_name": map[string]any{},
 				"manage_event_definitions_collection_response_with_total_external": map[string]any{},
-				"manage_event_definitions_property": map[string]any{},
+				"property": map[string]any{},
 			},
 		},
 		"entity": map[string]any{
@@ -172,41 +172,48 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "email",
-						"short": "The visitor's email address.",
+						"title": "Email",
 						"type": "`$STRING`",
+						"short": "The visitor's email address.",
 					},
 					map[string]any{
 						"name": "eventName",
+						"title": "Event Name",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The event's fully qualified name.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "objectId",
-						"short": "The ID of the record for which the event occurred (e.g., contact ID or visitor ID).",
+						"title": "Object Id",
 						"type": "`$STRING`",
+						"short": "The ID of the record for which the event occurred (e.g., contact ID or visitor ID).",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "occurredAt",
-						"short": "The time when this event occurred.",
+						"title": "Occurred At",
 						"type": "`$STRING`",
+						"short": "The time when this event occurred.",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "properties",
+						"title": "Properties",
+						"type": "`$OBJECT`",
 						"req": true,
 						"short": "The event properties to update.",
-						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "utk",
-						"short": "The visitor's usertoken.",
+						"title": "Utk",
 						"type": "`$STRING`",
+						"short": "The visitor's usertoken.",
 					},
 					map[string]any{
 						"name": "uuid",
-						"short": "A unique identifier for the event occurrence.",
+						"title": "Uuid",
 						"type": "`$STRING`",
+						"short": "A unique identifier for the event occurrence.",
 					},
 				},
 				"name": "basic",
@@ -216,7 +223,6 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/events/2026-09/send",
@@ -231,16 +237,18 @@ func MakeConfig() map[string]any {
 										"lit": "send",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"events",
 									"2026-09",
 									"send",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -249,35 +257,9 @@ func MakeConfig() map[string]any {
 						"name": "remove",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": nil,
-											"kind": "param",
-											"name": "event_definition_id",
-											"orig": "event_name",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "param",
-											"name": "property_name",
-											"orig": "property_name",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "DELETE",
 								"orig": "/events/2026-09/event-definitions/{eventName}/property/{propertyName}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"eventName": "event_definition_id",
-										"propertyName": "property_name",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "events",
@@ -298,16 +280,6 @@ func MakeConfig() map[string]any {
 										"var": "property_name",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"event_definition_id",
-										"property_name",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"events",
 									"2026-09",
@@ -316,28 +288,47 @@ func MakeConfig() map[string]any {
 									"property",
 									"{property_name}",
 								},
-							},
-							map[string]any{
+								"rename": map[string]any{
+									"param": map[string]any{
+										"eventName": "event_definition_id",
+										"propertyName": "property_name",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"example": nil,
-											"kind": "param",
-											"name": "event_name",
+											"name": "event_definition_id",
 											"orig": "event_name",
-											"reqd": true,
 											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": nil,
+										},
+										map[string]any{
+											"name": "property_name",
+											"orig": "property_name",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": nil,
 										},
 									},
 								},
+								"select": map[string]any{
+									"exist": []any{
+										"event_definition_id",
+										"property_name",
+									},
+								},
+							},
+							map[string]any{
 								"kind": "http",
 								"method": "DELETE",
 								"orig": "/events/2026-09/event-definitions/{eventName}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"eventName": "event_name",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "events",
@@ -352,20 +343,37 @@ func MakeConfig() map[string]any {
 										"var": "event_name",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"event_name",
+								"parts": []any{
+									"events",
+									"2026-09",
+									"event-definitions",
+									"{event_name}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"eventName": "event_name",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"events",
-									"2026-09",
-									"event-definitions",
-									"{event_name}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "event_name",
+											"orig": "event_name",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": nil,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"event_name",
+									},
 								},
 							},
 						},
@@ -374,11 +382,11 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"event_definition",
+							"$.main.kit.entity.event_definition",
 						},
 						[]any{
-							"event_definition",
-							"property",
+							"$.main.kit.entity.event_definition",
+							"$.main.kit.entity.property",
 						},
 					},
 				},
@@ -387,9 +395,10 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "inputs",
+						"title": "Inputs",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "An array of BehavioralEventHttpCompletionRequest objects, each representing a single behavioral event to be completed.",
-						"type": "`$ARRAY`",
 					},
 				},
 				"name": "batch",
@@ -399,7 +408,6 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/events/2026-09/send/batch",
@@ -417,17 +425,19 @@ func MakeConfig() map[string]any {
 										"lit": "batch",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"events",
 									"2026-09",
 									"send",
 									"batch",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -440,153 +450,172 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "archived",
+						"title": "Archived",
+						"type": "`$BOOLEAN`",
 						"req": true,
 						"short": "A boolean indicating whether the event type is archived.",
-						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
 						"name": "associations",
+						"title": "Associations",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "An array of association definitions related to the event type.",
-						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "comboEventRules",
-						"req": true,
+						"title": "Combo Event Rules",
 						"type": "`$OBJECT`",
-						"union": map[string]any{
-							"branches": 21,
-							"count": 17,
-							"depth": 20,
-						},
+						"req": true,
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "createdAt",
-						"short": "A string representing the date and time when the event type was created, in ISO 8601 format.",
+						"title": "Created At",
 						"type": "`$STRING`",
+						"short": "A string representing the date and time when the event type was created, in ISO 8601 format.",
+						"format": "date-time",
 					},
 					map[string]any{
-						"format": "int32",
 						"name": "createdUserId",
-						"short": "An integer representing the ID of the user who created the event type.",
+						"title": "Created User Id",
 						"type": "`$INTEGER`",
+						"short": "An integer representing the ID of the user who created the event type.",
+						"format": "int32",
 					},
 					map[string]any{
 						"name": "customMatchingId",
-						"req": true,
+						"title": "Custom Matching Id",
 						"type": "`$OBJECT`",
+						"req": true,
 					},
 					map[string]any{
 						"name": "description",
-						"short": "A string providing a description of the event type.",
+						"title": "Description",
 						"type": "`$STRING`",
+						"short": "A string providing a description of the event type.",
 					},
 					map[string]any{
 						"name": "detailTemplate",
-						"short": "The rendering template for the body of the CRM timeline activity card.",
+						"title": "Detail Template",
 						"type": "`$STRING`",
+						"short": "The rendering template for the body of the CRM timeline activity card.",
 					},
 					map[string]any{
 						"name": "fullyQualifiedName",
+						"title": "Fully Qualified Name",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "A string representing the fully qualified name of the event type.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "headerTemplate",
-						"short": "The rendering template for the header of the CRM timeline activity card.",
+						"title": "Header Template",
 						"type": "`$STRING`",
+						"short": "The rendering template for the header of the CRM timeline activity card.",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "A string representing the unique identifier of the event type.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "includeDefaultProperties",
+						"title": "Include Default Properties",
+						"type": "`$BOOLEAN`",
 						"req": true,
 						"short": "A boolean indicating whether default properties should be included.",
-						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
 						"name": "label",
+						"title": "Label",
+						"type": "`$STRING`",
+						"req": true,
 						"op": map[string]any{
 							"update": map[string]any{
 								"type": "`$STRING`",
 							},
 						},
-						"req": true,
 						"short": "A string representing the label of the event type.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "labels",
-						"req": true,
+						"title": "Labels",
 						"type": "`$OBJECT`",
+						"req": true,
 					},
 					map[string]any{
 						"name": "name",
+						"title": "Name",
+						"type": "`$STRING`",
+						"req": true,
 						"op": map[string]any{
 							"create": map[string]any{
 								"type": "`$STRING`",
 							},
 						},
-						"req": true,
 						"short": "A string representing the name of the event type.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "objectTypeId",
+						"title": "Object Type Id",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "A string representing the object type ID associated with the event type.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "primaryObject",
-						"short": "A string representing the primary object associated with the event type.",
+						"title": "Primary Object",
 						"type": "`$STRING`",
+						"short": "A string representing the primary object associated with the event type.",
 					},
 					map[string]any{
 						"name": "primaryObjectId",
-						"short": "A string representing the ID of the primary object associated with the event type.",
+						"title": "Primary Object Id",
 						"type": "`$STRING`",
+						"short": "A string representing the ID of the primary object associated with the event type.",
 					},
 					map[string]any{
 						"name": "properties",
+						"title": "Properties",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "An array of property objects associated with the event type.",
-						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "propertyDefinitions",
+						"title": "Property Definitions",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "An array of property definitions, each represented by an ExternalBehavioralEventPropertyCreate object.",
-						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "propertyOrder",
+						"title": "Property Order",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "Specifies the ordering and visibility of event properties when rendered on the CRM timeline activity card.",
-						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "trackingType",
+						"title": "Tracking Type",
+						"type": "`$STRING`",
 						"short": "A string indicating the tracking type of the event.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "updatedAt",
-						"short": "A string representing the date and time when the event type was last updated, in ISO 8601 format.",
+						"title": "Updated At",
 						"type": "`$STRING`",
+						"short": "A string representing the date and time when the event type was last updated, in ISO 8601 format.",
+						"format": "date-time",
 					},
 					map[string]any{
-						"format": "int32",
 						"name": "updatedUserId",
-						"short": "An integer representing the ID of the user who last updated the event type.",
+						"title": "Updated User Id",
 						"type": "`$INTEGER`",
+						"short": "An integer representing the ID of the user who last updated the event type.",
+						"format": "int32",
 					},
 				},
 				"id": map[string]any{
@@ -600,7 +629,6 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/events/2026-09/event-definitions",
@@ -615,16 +643,18 @@ func MakeConfig() map[string]any {
 										"lit": "event-definitions",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"events",
 									"2026-09",
 									"event-definitions",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -633,26 +663,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": nil,
-											"kind": "param",
-											"name": "id",
-											"orig": "event_name",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/events/2026-09/event-definitions/{eventName}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"eventName": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "events",
@@ -667,20 +680,37 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
+								"parts": []any{
+									"events",
+									"2026-09",
+									"event-definitions",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"eventName": "id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"events",
-									"2026-09",
-									"event-definitions",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "event_name",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": nil,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 						},
@@ -690,26 +720,9 @@ func MakeConfig() map[string]any {
 						"name": "update",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": nil,
-											"kind": "param",
-											"name": "id",
-											"orig": "event_name",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "PATCH",
 								"orig": "/events/2026-09/event-definitions/{eventName}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"eventName": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "events",
@@ -724,20 +737,37 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
+								"parts": []any{
+									"events",
+									"2026-09",
+									"event-definitions",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"eventName": "id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"events",
-									"2026-09",
-									"event-definitions",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "event_name",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": nil,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 						},
@@ -751,40 +781,46 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "eventType",
+						"title": "Event Type",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The format of the `eventType` string is `ae{appId}_{eventTypeLabel}`, `pe{portalId}_{eventTypeLabel}`, or just `e_{eventTypeLabel}` for HubSpot events.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "A unique identifier for the event.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "objectId",
+						"title": "Object Id",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The objectId of the object which did the event.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "objectType",
+						"title": "Object Type",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The objectType for the object which did the event.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "occurredAt",
+						"title": "Occurred At",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "An ISO 8601 timestamp when the event occurred.",
-						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "properties",
+						"title": "Properties",
+						"type": "`$OBJECT`",
 						"req": true,
 						"short": "A key-value map of event-specific properties.",
-						"type": "`$OBJECT`",
 					},
 				},
 				"id": map[string]any{
@@ -798,101 +834,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "after",
-											"orig": "after",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "before",
-											"orig": "before",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "event_type",
-											"orig": "event_type",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "id",
-											"orig": "id",
-											"type": "`$ARRAY`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "limit",
-											"orig": "limit",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "object_id",
-											"orig": "object_id",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "object_property_{propname}",
-											"orig": "object_property_{propname}",
-											"type": "`$OBJECT`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "object_type",
-											"orig": "object_type",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "occurred_after",
-											"orig": "occurred_after",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "occurred_before",
-											"orig": "occurred_before",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "property",
-											"orig": "property",
-											"type": "`$ARRAY`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "property_{propname}",
-											"orig": "property_{propname}",
-											"type": "`$OBJECT`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "sort",
-											"orig": "sort",
-											"type": "`$ARRAY`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/events/event-occurrences/2026-09",
@@ -905,6 +846,111 @@ func MakeConfig() map[string]any {
 									},
 									map[string]any{
 										"lit": "2026-09",
+									},
+								},
+								"parts": []any{
+									"events",
+									"event-occurrences",
+									"2026-09",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "after",
+											"orig": "after",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": nil,
+										},
+										map[string]any{
+											"name": "before",
+											"orig": "before",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": nil,
+										},
+										map[string]any{
+											"name": "event_type",
+											"orig": "event_type",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": nil,
+										},
+										map[string]any{
+											"name": "id",
+											"orig": "id",
+											"type": "`$ARRAY`",
+											"kind": "query",
+											"example": nil,
+										},
+										map[string]any{
+											"name": "limit",
+											"orig": "limit",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": nil,
+										},
+										map[string]any{
+											"name": "object_id",
+											"orig": "object_id",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": nil,
+										},
+										map[string]any{
+											"name": "object_property_{propname}",
+											"orig": "object_property_{propname}",
+											"type": "`$OBJECT`",
+											"kind": "query",
+											"example": nil,
+										},
+										map[string]any{
+											"name": "object_type",
+											"orig": "object_type",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": nil,
+										},
+										map[string]any{
+											"name": "occurred_after",
+											"orig": "occurred_after",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": nil,
+										},
+										map[string]any{
+											"name": "occurred_before",
+											"orig": "occurred_before",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": nil,
+										},
+										map[string]any{
+											"name": "property",
+											"orig": "property",
+											"type": "`$ARRAY`",
+											"kind": "query",
+											"example": nil,
+										},
+										map[string]any{
+											"name": "property_{propname}",
+											"orig": "property_{propname}",
+											"type": "`$OBJECT`",
+											"kind": "query",
+											"example": nil,
+										},
+										map[string]any{
+											"name": "sort",
+											"orig": "sort",
+											"type": "`$ARRAY`",
+											"kind": "query",
+											"example": nil,
+										},
 									},
 								},
 								"select": map[string]any{
@@ -924,15 +970,6 @@ func MakeConfig() map[string]any {
 										"sort",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"events",
-									"event-occurrences",
-									"2026-09",
-								},
 							},
 						},
 					},
@@ -945,9 +982,10 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "eventTypes",
+						"title": "Event Types",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "List of event type names.",
-						"type": "`$ARRAY`",
 					},
 				},
 				"name": "events_visible_external_event_type_name",
@@ -957,7 +995,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/events/event-occurrences/2026-09/event-types",
@@ -975,17 +1012,19 @@ func MakeConfig() map[string]any {
 										"lit": "event-types",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.eventTypes`",
-								},
 								"parts": []any{
 									"events",
 									"event-occurrences",
 									"2026-09",
 									"event-types",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.eventTypes`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -998,119 +1037,134 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "archived",
+						"title": "Archived",
+						"type": "`$BOOLEAN`",
 						"req": true,
 						"short": "A boolean indicating whether the event type is archived.",
-						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
 						"name": "associations",
+						"title": "Associations",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "An array of association definitions related to the event type.",
-						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "comboEventRules",
-						"req": true,
+						"title": "Combo Event Rules",
 						"type": "`$OBJECT`",
-						"union": map[string]any{
-							"branches": 21,
-							"count": 17,
-							"depth": 20,
-						},
+						"req": true,
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "createdAt",
-						"short": "A string representing the date and time when the event type was created, in ISO 8601 format.",
+						"title": "Created At",
 						"type": "`$STRING`",
+						"short": "A string representing the date and time when the event type was created, in ISO 8601 format.",
+						"format": "date-time",
 					},
 					map[string]any{
-						"format": "int32",
 						"name": "createdUserId",
-						"short": "An integer representing the ID of the user who created the event type.",
+						"title": "Created User Id",
 						"type": "`$INTEGER`",
+						"short": "An integer representing the ID of the user who created the event type.",
+						"format": "int32",
 					},
 					map[string]any{
 						"name": "customMatchingId",
-						"req": true,
+						"title": "Custom Matching Id",
 						"type": "`$OBJECT`",
+						"req": true,
 					},
 					map[string]any{
 						"name": "description",
-						"short": "A string providing a description of the event type.",
+						"title": "Description",
 						"type": "`$STRING`",
+						"short": "A string providing a description of the event type.",
 					},
 					map[string]any{
 						"name": "detailTemplate",
-						"short": "The rendering template for the body of the CRM timeline activity card.",
+						"title": "Detail Template",
 						"type": "`$STRING`",
+						"short": "The rendering template for the body of the CRM timeline activity card.",
 					},
 					map[string]any{
 						"name": "fullyQualifiedName",
+						"title": "Fully Qualified Name",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "A string representing the fully qualified name of the event type.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "headerTemplate",
-						"short": "The rendering template for the header of the CRM timeline activity card.",
+						"title": "Header Template",
 						"type": "`$STRING`",
+						"short": "The rendering template for the header of the CRM timeline activity card.",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "A string representing the unique identifier of the event type.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "labels",
-						"req": true,
+						"title": "Labels",
 						"type": "`$OBJECT`",
+						"req": true,
 					},
 					map[string]any{
 						"name": "name",
+						"title": "Name",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "A string representing the name of the event type.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "objectTypeId",
+						"title": "Object Type Id",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "A string representing the object type ID associated with the event type.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "primaryObject",
-						"short": "A string representing the primary object associated with the event type.",
+						"title": "Primary Object",
 						"type": "`$STRING`",
+						"short": "A string representing the primary object associated with the event type.",
 					},
 					map[string]any{
 						"name": "primaryObjectId",
-						"short": "A string representing the ID of the primary object associated with the event type.",
+						"title": "Primary Object Id",
 						"type": "`$STRING`",
+						"short": "A string representing the ID of the primary object associated with the event type.",
 					},
 					map[string]any{
 						"name": "properties",
+						"title": "Properties",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "An array of property objects associated with the event type.",
-						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "trackingType",
+						"title": "Tracking Type",
+						"type": "`$STRING`",
 						"short": "A string indicating the tracking type of the event.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "updatedAt",
-						"short": "A string representing the date and time when the event type was last updated, in ISO 8601 format.",
+						"title": "Updated At",
 						"type": "`$STRING`",
+						"short": "A string representing the date and time when the event type was last updated, in ISO 8601 format.",
+						"format": "date-time",
 					},
 					map[string]any{
-						"format": "int32",
 						"name": "updatedUserId",
-						"short": "An integer representing the ID of the user who last updated the event type.",
+						"title": "Updated User Id",
 						"type": "`$INTEGER`",
+						"short": "An integer representing the ID of the user who last updated the event type.",
+						"format": "int32",
 					},
 				},
 				"id": map[string]any{
@@ -1124,45 +1178,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "after",
-											"orig": "after",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "include_property",
-											"orig": "include_property",
-											"type": "`$BOOLEAN`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "limit",
-											"orig": "limit",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "search_string",
-											"orig": "search_string",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "sort_order",
-											"orig": "sort_order",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/events/2026-09/event-definitions",
@@ -1177,6 +1192,55 @@ func MakeConfig() map[string]any {
 										"lit": "event-definitions",
 									},
 								},
+								"parts": []any{
+									"events",
+									"2026-09",
+									"event-definitions",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "after",
+											"orig": "after",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": nil,
+										},
+										map[string]any{
+											"name": "include_property",
+											"orig": "include_property",
+											"type": "`$BOOLEAN`",
+											"kind": "query",
+											"example": nil,
+										},
+										map[string]any{
+											"name": "limit",
+											"orig": "limit",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": nil,
+										},
+										map[string]any{
+											"name": "search_string",
+											"orig": "search_string",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": nil,
+										},
+										map[string]any{
+											"name": "sort_order",
+											"orig": "sort_order",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": nil,
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"after",
@@ -1186,15 +1250,6 @@ func MakeConfig() map[string]any {
 										"sort_order",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"events",
-									"2026-09",
-									"event-definitions",
-								},
 							},
 						},
 					},
@@ -1203,87 +1258,78 @@ func MakeConfig() map[string]any {
 					"ancestors": []any{},
 				},
 			},
-			"manage_event_definitions_property": map[string]any{
+			"property": map[string]any{
 				"fields": []any{
 					map[string]any{
 						"name": "description",
-						"short": "A string providing additional information about the property.",
+						"title": "Description",
 						"type": "`$STRING`",
+						"short": "A string providing additional information about the property.",
 					},
 					map[string]any{
-						"format": "int32",
 						"name": "displayOrder",
-						"short": "For not hidden properties, indicates the order to display the property on the record's activity timeline (ex: displayOrder: 0 is at the top).",
+						"title": "Display Order",
 						"type": "`$INTEGER`",
+						"short": "For not hidden properties, indicates the order to display the property on the record's activity timeline (ex: displayOrder: 0 is at the top).",
+						"format": "int32",
 					},
 					map[string]any{
 						"name": "hidden",
-						"short": "Controls whether or not this property is displayed on the record's activity timeline.",
+						"title": "Hidden",
 						"type": "`$BOOLEAN`",
+						"short": "Controls whether or not this property is displayed on the record's activity timeline.",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "label",
+						"title": "Label",
+						"type": "`$STRING`",
+						"req": true,
 						"op": map[string]any{
 							"update": map[string]any{
 								"type": "`$STRING`",
 							},
 						},
-						"req": true,
 						"short": "A string representing the display name of the property.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "name",
-						"short": "A string representing the unique name of the property.",
+						"title": "Name",
 						"type": "`$STRING`",
+						"short": "A string representing the unique name of the property.",
 					},
 					map[string]any{
 						"name": "options",
-						"short": "An array of OptionInput objects that define the possible values for the property.",
+						"title": "Options",
 						"type": "`$ARRAY`",
+						"short": "An array of OptionInput objects that define the possible values for the property.",
 					},
 					map[string]any{
 						"name": "type",
+						"title": "Type",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "A string indicating the data type of the property.",
-						"type": "`$STRING`",
 					},
 				},
 				"id": map[string]any{
 					"field": "id",
 					"name": "id",
 				},
-				"name": "manage_event_definitions_property",
+				"name": "property",
 				"op": map[string]any{
 					"create": map[string]any{
 						"input": "data",
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": nil,
-											"kind": "param",
-											"name": "event_name",
-											"orig": "event_name",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/events/2026-09/event-definitions/{eventName}/property",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"eventName": "event_name",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "events",
@@ -1301,21 +1347,38 @@ func MakeConfig() map[string]any {
 										"lit": "property",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"event_name",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"events",
 									"2026-09",
 									"event-definitions",
 									"{event_name}",
 									"property",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"eventName": "event_name",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "event_name",
+											"orig": "event_name",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": nil,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"event_name",
+									},
 								},
 							},
 						},
@@ -1325,35 +1388,9 @@ func MakeConfig() map[string]any {
 						"name": "update",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": nil,
-											"kind": "param",
-											"name": "event_definition_id",
-											"orig": "event_name",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "param",
-											"name": "id",
-											"orig": "property_name",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "PATCH",
 								"orig": "/events/2026-09/event-definitions/{eventName}/property/{propertyName}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"eventName": "event_definition_id",
-										"propertyName": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "events",
@@ -1374,16 +1411,6 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"event_definition_id",
-										"id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"events",
 									"2026-09",
@@ -1392,6 +1419,42 @@ func MakeConfig() map[string]any {
 									"property",
 									"{id}",
 								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"eventName": "event_definition_id",
+										"propertyName": "id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "event_definition_id",
+											"orig": "event_name",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": nil,
+										},
+										map[string]any{
+											"name": "id",
+											"orig": "property_name",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": nil,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"event_definition_id",
+										"id",
+									},
+								},
 							},
 						},
 					},
@@ -1399,7 +1462,7 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"event_definition",
+							"$.main.kit.entity.event_definition",
 						},
 					},
 				},

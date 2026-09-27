@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ManageEventDefinitionsCollectionResponseWithTotalExternalEntity = void 0;
 const HubspotEventsEntityBase_1 = require("../HubspotEventsEntityBase");
-// TODO: needs Entity superclass
 class ManageEventDefinitionsCollectionResponseWithTotalExternalEntity extends HubspotEventsEntityBase_1.HubspotEventsEntityBase {
     constructor(client, entopts) {
         super(client, entopts);

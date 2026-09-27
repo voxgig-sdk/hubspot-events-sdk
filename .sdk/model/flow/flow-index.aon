@@ -1,9 +1,0 @@
-# Flows
-
-@"./BasicBasicFlow.aon"
-@"./BasicBatchFlow.aon"
-@"./BasicEventDefinitionFlow.aon"
-@"./BasicEventsCollectionResponseExternalUnifiedEventFlow.aon"
-@"./BasicEventsVisibleExternalEventTypeNameFlow.aon"
-@"./BasicManageEventDefinitionsCollectionResponseWithTotalExternalFlow.aon"
-@"./BasicManageEventDefinitionsPropertyFlow.aon"
